@@ -1,4 +1,4 @@
-import passport, { use } from 'passport'
+import passport from 'passport'
 import { StatusCodes } from 'http-status-codes'
 
 // 透過 passport 進行登錄驗證，根據身分認證結果返回相應的 HTTP 響應狀態碼消息
@@ -12,7 +12,7 @@ export const login = (req, res, next) => {
 
    3. callback : 回调函数，用于处理身份验证的结果，有三個參數
    - error: 表示身份验证过程中是否发生了错误，如果没有错误，为 null。
-   - user: 表示身份验证成功时的用户对象，如果身份验证失败，为 false 或 undefined。
+   - user: 表示身份验证成功时的用户对象，如果身份验证失败，为 false 或 undefined。從Passport的驗證策略中返回的user對象
    - info: 一个包含有关身份验证过程的额外信息的可选对象。
    */
 
@@ -42,6 +42,7 @@ export const login = (req, res, next) => {
         return
       }
     }
+    // user為passport驗證策略中返回的user對象，放進req.user，使controller可以用來取得user資料
     req.user = user
     next()
   })(req, res, next)
