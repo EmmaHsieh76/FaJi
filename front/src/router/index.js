@@ -52,7 +52,7 @@ const routes = [
       {
         path: 'introduce',
         name: 'Introduce',
-        component: () => import('@/views/front/   IntroduceView.vue'),
+        component: () => import('@/views/front/IntroduceView.vue'),
         meta: {
           title: '發記冰品|冰品介紹'
         }
@@ -60,7 +60,7 @@ const routes = [
       {
         path: 'product',
         name: 'Product',
-        component: () => import('@/views/front/   ProductView.vue'),
+        component: () => import('@/views/front/ProductView.vue'),
         meta: {
           title: '發記冰品|快速預訂'
         }
@@ -68,7 +68,7 @@ const routes = [
       {
         path: 'content',
         name: 'Content',
-        component: () => import('@/views/front/   ContentView.vue'),
+        component: () => import('@/views/front/ContentView.vue'),
         meta: {
           title: '發記冰品|關於我們'
         }
@@ -84,7 +84,7 @@ const routes = [
       {
         path: 'member',
         name: 'Member',
-        component: () => import('@/views/front/   MemberView.vue'),
+        component: () => import('@/views/front/MemberView.vue'),
         meta: {
           title: '發記冰品|會員專區'
         }
@@ -100,7 +100,7 @@ const routes = [
       {
         path: 'modification',
         name: 'Modification',
-        component: () => import('@/views/front/  ModificationView.vue'),
+        component: () => import('@/views/front/ModificationView.vue'),
         meta: {
           title: '發記冰品|資料修改'
         }
