@@ -19,7 +19,7 @@ const routes = [
       },
       {
         path: 'register',
-        name: 'Home',
+        name: 'Register',
         component: () => import('@/views/front/RegisterView.vue'),
         meta: {
           title: '發記冰品|註冊'
@@ -27,10 +27,120 @@ const routes = [
       },
       {
         path: 'login',
-        name: 'Home',
+        name: 'Login',
         component: () => import('@/views/front/LoginView.vue'),
         meta: {
           title: '發記冰品|登入'
+        }
+      },
+      {
+        path: 'about',
+        name: 'About',
+        component: () => import('@/views/front/AboutView.vue'),
+        meta: {
+          title: '發記冰品|關於我們'
+        }
+      },
+      {
+        path: 'news',
+        name: 'News',
+        component: () => import('@/views/front/NewsView.vue'),
+        meta: {
+          title: '發記冰品|最新消息'
+        }
+      },
+      {
+        path: 'introduce',
+        name: 'Introduce',
+        component: () => import('@/views/front/   IntroduceView.vue'),
+        meta: {
+          title: '發記冰品|冰品介紹'
+        }
+      },
+      {
+        path: 'product',
+        name: 'Product',
+        component: () => import('@/views/front/   ProductView.vue'),
+        meta: {
+          title: '發記冰品|快速預訂'
+        }
+      },
+      {
+        path: 'content',
+        name: 'Content',
+        component: () => import('@/views/front/   ContentView.vue'),
+        meta: {
+          title: '發記冰品|關於我們'
+        }
+      },
+      {
+        path: 'cart',
+        name: 'Cart',
+        component: () => import('@/views/front/CartView.vue'),
+        meta: {
+          title: '發記冰品|我的購物車'
+        }
+      },
+      {
+        path: 'member',
+        name: 'Member',
+        component: () => import('@/views/front/   MemberView.vue'),
+        meta: {
+          title: '發記冰品|會員專區'
+        }
+      },
+      {
+        path: 'orders',
+        name: 'Orders',
+        component: () => import('@/views/front/OrdersView.vue'),
+        meta: {
+          title: '發記冰品|訂單查詢'
+        }
+      },
+      {
+        path: 'modification',
+        name: 'Modification',
+        component: () => import('@/views/front/  ModificationView.vue'),
+        meta: {
+          title: '發記冰品|資料修改'
+        }
+      }
+    ]
+  },
+  {
+    path: '/admin',
+    component: () => import('@/layouts/AdminLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'AdminHome',
+        component: () => import('@/views/admin/HomeView.vue'),
+        meta: {
+          title: '發記冰品|後台管理'
+        }
+      },
+      {
+        path: 'products',
+        name: 'AdminProducts',
+        component: () => import('@/views/admin/ProductsView.vue'),
+        meta: {
+          title: '發記冰品|後台商品管理'
+        }
+      },
+      {
+        path: 'orders',
+        name: 'AdminOrders',
+        component: () => import('@/views/admin/OrdersView.vue'),
+        meta: {
+          title: '發記冰品|後台訂單管理'
+        }
+      },
+      {
+        path: 'members',
+        name: 'AdminMembers',
+        component: () => import('@/views/admin/MembersView.vue'),
+        meta: {
+          title: '發記冰品|後台會員管理'
         }
       }
     ]
