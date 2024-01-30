@@ -72,7 +72,6 @@ const schema = new Schema(
     phone: {
       type: String,
       required: [true, '缺少使用者電話'],
-      unique: true,
       validate: {
         validator (value) {
           return validator.isMobilePhone(value, 'zh-TW')

@@ -60,6 +60,7 @@ const navItems = [
   { to: '/product', text: '快速預訂' },
   { to: '/content', text: '聯繫我們' },
   { to: '/cart', text: '我的購物車' },
+  { to: '/signup', text: '會員專區' },
   { to: '/member', text: '會員專區' },
   { to: '/admin', text: '管理' }
 ]

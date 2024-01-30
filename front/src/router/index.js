@@ -82,11 +82,19 @@ const routes = [
         }
       },
       {
+        path: 'signup',
+        name: 'Signup',
+        component: () => import('@/views/front/SignUp.vue'),
+        meta: {
+          title: '發記冰品|註冊登入'
+        }
+      },
+      {
         path: 'member',
         name: 'Member',
         component: () => import('@/views/front/MemberView.vue'),
         meta: {
-          title: '發記冰品|會員專區'
+          title: '發記冰品|註冊登入'
         }
       },
       {

@@ -30,7 +30,7 @@ export const login = (req, res, next) => {
         // INTERNAL_SERVER_ERROR => 500
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
           success: false,
-          message: '未知錯誤'
+          message: '未知錯誤middleware'
         })
         return
       } else {

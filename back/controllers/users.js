@@ -46,7 +46,7 @@ export const create = async (req, res) => {
 export const login = async (req, res) => {
   try {
     // jwt的token => jwt.sign(要保存的id,密鑰,過期)
-    const token = jwt.sign({ _id: req.users._id }, process.env.JWT_SECRET, { expiresIn: '7days' })
+    const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, { expiresIn: '7 days' })
     // 把上面token，放入使用者的token裡面
     req.user.tokens.push(token)
     // 並保存
@@ -54,16 +54,19 @@ export const login = async (req, res) => {
     // 前端需要的全部資料回傳給前端
     // 前端登入需要的使用者資料全部回回去
     res.status(StatusCodes.OK).json({
-      token,
-      account: req.user.account,
-      email: req.user.email,
-      role: req.user.role,
-      // 購物車存商品id和數量，只回傳商品數量加總
-      // reduce(()=>{},0) => 0是初始值，total是總數，current是目前的值，會跑迴圈把購物車內的數量加總
-      cart: req.user.cart.reduce((total, current) => {
-        return total + current.quantity
-      }, 0)
-
+      success: true,
+      message: '',
+      result: {
+        token,
+        account: req.user.account,
+        email: req.user.email,
+        role: req.user.role,
+        // 購物車存商品id和數量，只回傳商品數量加總
+        // reduce(()=>{},0) => 0是初始值，total是總數，current是目前的值，會跑迴圈把購物車內的數量加總
+        cart: req.user.cart.reduce((total, current) => {
+          return total + current.quantity
+        }, 0)
+      }
     })
   } catch (error) {
     // INTERNAL_SERVER_ERROR => http狀態碼500
