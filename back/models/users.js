@@ -34,8 +34,6 @@ const schema = new Schema(
       type: String,
       // 必填欄位
       required: [true, '缺少使用者帳號'],
-      minlength: [10, '使用者帳號長度不符'],
-      maxlength: [60, '使用者帳號長度不符'],
       unique: true,
       validate: {
         validator (value) {
