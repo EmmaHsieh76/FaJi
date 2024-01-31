@@ -1,119 +1,51 @@
 <template>
-  <div>
-    <v-img
-      class="mx-auto my-6"
-      max-width="228"
-      src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
-    ></v-img>
-
-    <v-card
-      class="mx-auto pa-12 pb-8"
-      elevation="8"
-      max-width="448"
-      rounded="lg"
-    >
-      <div class="text-subtitle-1 text-medium-emphasis">Account</div>
-
-      <v-text-field
-        density="compact"
-        placeholder="Email address"
-        prepend-inner-icon="mdi-email-outline"
-        variant="outlined"
-      ></v-text-field>
-
-      <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-        Password
-
-        <a
-          class="text-caption text-decoration-none text-blue"
-          href="#"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Forgot login password?</a>
-      </div>
-
-      <v-text-field
-        :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-        :type="visible ? 'text' : 'password'"
-        density="compact"
-        placeholder="Enter your password"
-        prepend-inner-icon="mdi-lock-outline"
-        variant="outlined"
-        @click:append-inner="visible = !visible"
-      ></v-text-field>
-
-      <v-card
-        class="mb-12"
-        color="surface-variant"
-        variant="tonal"
-      >
-        <v-card-text class="text-medium-emphasis text-caption">
-          Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.
-        </v-card-text>
-      </v-card>
-
-      <v-btn
+<v-card
+class="pa-16 py-8"
+rounded="lg"
+>
+  <v-row>
+    <v-col cols="12">
+      <!-- :disabled="isSubmitting"=>表單送出時，停用整個表單 -->
+      <!--  @submit.prevent="submit" => 送出後，停止預設的跳頁動作並執行submit的function -->
+      <v-form :disabled="isSubmitting" @submit.prevent="submit">
+        <v-text-field
+          label="帳號"
+          type="email"
+          class="mb-3"
+          placeholder="a123456@gmail.com"
+          v-model="account.value.value"
+          :error-messages="account.errorMessage.value"
+          prepend-inner-icon="mdi-email-outline"
+          hint="帳號為信箱格式"
+          variant="outlined"
+        ></v-text-field>
+        <v-text-field
+          label="輸入您的密碼"
+          class="mb-3"
+          minlength="4"
+          maxlength="20"
+          counter
+          hint="密碼長度至少 4 個字，最多 20 個字"
+          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="visible ? 'text' : 'password'"
+          @click:append-inner="visible = !visible"
+          v-model="password.value.value"
+          :error-messages="password.errorMessage.value"
+          prepend-inner-icon="mdi-lock-outline"
+          variant="outlined"
+        ></v-text-field>
+        <v-btn
+        type="submit"
+        color="yellow-darken-4"
         block
-        class="mb-8"
-        color="blue"
         size="large"
-        variant="tonal"
-      >
-        Log In
-      </v-btn>
-
-      <v-card-text class="text-center">
-        <a
-          class="text-blue text-decoration-none"
-          href="#"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
-        </a>
-      </v-card-text>
-    </v-card>
-  </div>
-  <v-card 
-  class="mx-auto pa-12 pb-8"
-  elevation="8"
-  rounded="lg"
-  >
-    <v-row>
-      <v-col cols="12">
-        <!-- :disabled="isSubmitting"=>表單送出時，停用整個表單 -->
-        <!--  @submit.prevent="submit" => 送出後，停止預設的跳頁動作並執行submit的function -->
-        <v-form :disabled="isSubmitting" @submit.prevent="submit">
-          <v-text-field
-            label="帳號"
-            type="email"
-            class="mb-3"
-            placeholder="a123456@gmail.com"
-            v-model="account.value.value"
-            :error-messages="account.errorMessage.value"
-            prepend-inner-icon="mdi-email-outline"
-            hint="帳號為信箱格式"
-            variant="outlined"
-          ></v-text-field>
-          <v-text-field
-            label="密碼"
-            type="password"
-            class="mb-3"
-            minlength="4"
-            maxlength="20"
-            counter
-            hint="密碼長度至少 4 個字，最多 20 個字"
-            v-model="password.value.value"
-            :error-messages="password.errorMessage.value"
-            prepend-inner-icon="mdi-lock-outline"
-            variant="outlined"
-          ></v-text-field>
-          <v-btn type="submit" color="yellow-darken-4" block>登入</v-btn>
-        </v-form>
-      </v-col>
-    </v-row>
-  </v-card>
+        class="font-weight-bold"
+        variant="tonal">
+        登入</v-btn>
+      </v-form>
+    </v-col>
+  </v-row>
+</v-card>
 </template>
 
 <script setup>
@@ -127,9 +59,12 @@ import { api } from '@/plugins/axios'
 import { useRouter } from 'vue-router'
 // useSnackbar=>彈出提示訊息
 import { useSnackbar } from 'vuetify-use-dialog'
+import { ref } from 'vue'
 
 const router = useRouter()
 const createSnackbar = useSnackbar()
+// 預設visible為false
+const visible = ref(false)
 
 // 定義註冊表單資料格式 => 表單驗證
 const schema = yup.object({

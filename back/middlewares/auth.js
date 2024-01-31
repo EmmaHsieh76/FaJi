@@ -1,5 +1,6 @@
 import passport from 'passport'
 import { StatusCodes } from 'http-status-codes'
+import jsonwebtoken from 'jsonwebtoken'
 
 // 透過 passport 進行登錄驗證，根據身分認證結果返回相應的 HTTP 響應狀態碼消息
 
@@ -44,6 +45,37 @@ export const login = (req, res, next) => {
     }
     // user為passport驗證策略中返回的user對象，放進req.user，使controller可以用來取得user資料
     req.user = user
+    next()
+  })(req, res, next)
+}
+
+export const jwt = (req, res, next) => {
+  // passport的驗證方式
+  passport.authenticate('jwt', { session: false }, (error, data, info) => {
+    if (error || !data) {
+      // JWT 格式不對 SECRET驗證錯誤
+      if (info instanceof jsonwebtoken.JsonWebTokenError) {
+        res.status(StatusCodes.UNAUTHORIZED).json({
+          success: false,
+          message: 'JWT無效'
+        })
+      } else if (info.message === '未知錯誤') {
+        // INTERNAL_SERVER_ERROR => 500
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+          success: false,
+          message: '未知錯誤'
+        })
+      } else {
+        // 其他的錯誤
+        res.status(StatusCodes.UNAUTHORIZED).json({
+          success: false,
+          message: 'info.message'
+        })
+      }
+      return
+    }
+    req.user = data.user
+    req.token = data.token
     next()
   })(req, res, next)
 }

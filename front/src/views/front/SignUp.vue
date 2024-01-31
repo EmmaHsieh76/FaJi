@@ -1,13 +1,13 @@
 <!-- eslint-disable semi -->
 <template>
-  <v-card class="mx-auto my-6" max-width="700" elevation="4">
+  <v-card class="mx-auto my-0 my-sm-6" max-width="500"  elevation="4">
     <v-tabs
       v-model="tab"
       color="yellow-darken-4"
       align-tabs="center"
       fixed-tabs
     >
-      <v-tab :value="1"><v-icon>mdi-login</v-icon>登入</v-tab>
+      <v-tab :value="1" class="font-weight-black"><v-icon>mdi-login</v-icon>登入</v-tab>
       <v-tab :value="2"><v-icon>mdi-account-plus-outline</v-icon>註冊</v-tab>
     </v-tabs>
     <v-window v-model="tab">

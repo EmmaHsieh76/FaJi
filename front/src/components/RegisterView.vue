@@ -1,5 +1,7 @@
 <template>
-  <v-container>
+  <v-card
+  class="pa-sm-16 py-sm-12 pa-8 py-2"
+  rounded="lg">
     <v-row>
       <v-col cols="12">
         <!-- :disabled="isSubmitting"=>表單送出時，停用整個表單 -->
@@ -10,14 +12,17 @@
           placeholder="a123456@gmail.com"
           v-model="account.value.value"
           :error-messages="account.errorMessage.value"
-          prepend-icon="mdi-email-outline"
+          prepend-inner-icon="mdi-email-outline"
+          variant="outlined"
+          hint="帳號為信箱格式"
           ></v-text-field>
           <v-text-field
           label="密碼" type="password" class="mb-3"
           minlength="4" maxlength="20" counter
           v-model="password.value.value"
           :error-messages="password.errorMessage.value"
-          prepend-icon="mdi-lock-outline"
+          prepend-inner-icon="mdi-lock-outline"
+          variant="outlined"
           hint="密碼長度至少 4 個字，最多 20 個字"
           ></v-text-field>
           <v-text-field
@@ -25,7 +30,8 @@
           minlength="4" maxlength="20" counter
           v-model="passwordConfirm.value.value"
           :error-messages="passwordConfirm.errorMessage.value"
-          prepend-icon="mdi-lock-alert-outline"
+          prepend-inner-icon="mdi-lock-alert-outline"
+          variant="outlined"
           hint="確認密碼和密碼必須一致"
           ></v-text-field>
           <v-text-field
@@ -33,20 +39,28 @@
           placeholder="王小明"
           v-model="name.value.value"
           :error-messages="name.errorMessage.value"
-          prepend-icon="mdi-account-outline"
+          prepend-inner-icon="mdi-account-circle-outline"
+          variant="outlined"
           ></v-text-field>
           <v-text-field
           label="手機號碼" type="tel" class="mb-3"
           placeholder="0912345678"
           v-model="phone.value.value"
           :error-messages="phone.errorMessage.value"
-          prepend-icon="mdi-cellphone"
+          prepend-inner-icon="mdi-cellphone"
+          variant="outlined"
           ></v-text-field>
-          <v-btn type="submit" color="yellow-darken-4" block>註冊</v-btn>
+          <v-btn
+          type="submit"
+          color="yellow-darken-4"
+          block
+          size="large"
+          class="font-weight-bold"
+          variant="tonal">註冊</v-btn>
         </v-form>
       </v-col>
     </v-row>
-  </v-container>
+  </v-card>
 </template>
 
 <script setup>
