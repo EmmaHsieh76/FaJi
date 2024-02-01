@@ -43,10 +43,10 @@ passport.use(
 )
 
 // jwt驗證策略，註冊一個驗證的方式
-// 一個名叫jwt的驗證策略
+// 一個名叫jwt的驗證方式，使用jwt策略
 // 這一段的用途:檢查過期，只有舊換新和登出的路徑可以有過期的jwt。
 passport.use('jwt', new passportJWT.Strategy({
-  jwtFormRequest: passportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: passportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.JWT_SECRET,
   // 在callback取得請求的資訊
   passReqToCallback: true,

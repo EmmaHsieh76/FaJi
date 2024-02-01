@@ -74,6 +74,7 @@ export const jwt = (req, res, next) => {
       }
       return
     }
+    // data為passport驗證策略中返回的data，放進req.user，使controller可以用來取得data資料
     req.user = data.user
     req.token = data.token
     next()

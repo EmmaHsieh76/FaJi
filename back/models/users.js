@@ -97,6 +97,15 @@ const schema = new Schema(
     versionKey: false
   }
 )
+// 建立虛擬欄位，用來計算購物車內商品的數量
+schema.virtual('cartQuantity')
+  .get(function () {
+    // 購物車存商品id和數量，只回傳商品數量加總
+    // reduce(()=>{},0) => 0是初始值，total是總數，current是目前的值，會跑迴圈把購物車內的數量加總
+    return this.cart.reduce((total, current) => {
+      return total + current.quantity
+    }, 0)
+  })
 
 // 密碼資料庫
 // 保存用户数据之前，检查并处理密码的修改。如果密码被修改且符合规定，将密码加密處理，否则会生成一个密码长度不符的验证错误

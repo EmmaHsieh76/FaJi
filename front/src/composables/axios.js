@@ -10,6 +10,15 @@ import axios from 'axios'
 //   baseURL: 'http://localhost:4000'
 // })
 // import.meta.env.VITE_API 等於 .env.development裡面的VITE_API=http://localhost:4000
-export const api = axios.create({
-  baseURL: import.meta.env.VITE_API
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL
 })
+
+const apiAuth = axios.create({
+  baseURL: import.meta.env.VITE_API_URL
+})
+
+export const useApi = () => {
+  return { api, apiAuth }
+}

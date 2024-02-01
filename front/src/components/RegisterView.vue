@@ -68,12 +68,14 @@
 import validator from 'validator'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
-// api => axios的路徑baseURL
-import { api } from '@/plugins/axios'
 // useRouter=>對路由做操作ex:跳轉頁面，useRoute=>取路由的資訊
 // import { useRouter } from 'vue-router'
 // useSnackbar=>彈出提示訊息
 import { useSnackbar } from 'vuetify-use-dialog'
+// useApi => axios的路徑baseURL
+import { useApi } from '@/composables/axios'
+
+const { api } = useApi()
 
 // const router = useRouter()
 const createSnackbar = useSnackbar()
