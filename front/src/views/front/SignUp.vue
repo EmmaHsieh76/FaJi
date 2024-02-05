@@ -30,7 +30,7 @@ import { ref } from 'vue'
 import RegisterView from '@/components/RegisterView.vue'
 import LoginView from '@/components/LoginView.vue'
 
-const tab = ref(2)
+const tab = ref(1)
 
 const shift = () => {
   tab.value = 1

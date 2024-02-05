@@ -109,7 +109,7 @@ export const extend = async (req, res) => {
     const idx = req.user.tokens.findIndex(token => token === req.token)
     // 找到後，嵌入新的jwt，token
     // jwt的token => jwt.sign(要保存的id,密鑰,過期)
-    const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, { expiresIn: '7 days' })
+    const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, { expiresIn: '1 s' })
     // 舊user.token的位置的內容換成新的token
     req.user.tokens[idx] = token
     // 保存

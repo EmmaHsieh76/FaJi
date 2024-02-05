@@ -60,11 +60,14 @@ import { useSnackbar } from 'vuetify-use-dialog'
 import { ref } from 'vue'
 // useApi => axios的路徑baseURL
 import { useApi } from '@/composables/axios'
+import { useUserStore } from '@/store/user'
 
 const { api } = useApi()
 
 const router = useRouter()
 const createSnackbar = useSnackbar()
+const user = useUserStore()
+
 // 預設visible為false
 const visible = ref(false)
 
@@ -97,24 +100,27 @@ const password = useField('password')
 // values => 表單內所有欄位的值
 const submit = handleSubmit(async (values) => {
   try {
+    // const {data} 把後端的回應解構
     // post('baseURL後接的相對路徑',要送出的資料)
-    await api.post('/users/login', {
+    const { data } = await api.post('/users/login', {
       account: values.account,
       password: values.password
     })
+    // 丟到useUserStore的function裡面
+    user.login(data.result)
     // 送出表單，註冊成功後，跳出提示訊息
     createSnackbar({
       text: '登入成功',
       // 不要出現關閉的按鈕
       showCloseButton: false,
-      // snackbarProps => vuetify的snackbar屬性
+      // snackbarProps => vuetify的snackbar樣式
       snackbarProps: {
         timeout: 2000,
         color: 'green',
         location: 'bottom'
       }
     })
-    // 註冊成功後，跳轉頁面到首頁
+    // 登入成功後，跳轉頁面到首頁
     router.push('/')
   } catch (error) {
     console.log(error)
