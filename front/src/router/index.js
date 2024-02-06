@@ -48,7 +48,7 @@ const routes = [
         name: 'About',
         component: () => import('@/views/front/AboutView.vue'),
         meta: {
-          title: '發記冰品|關於我們',
+          title: '發記冰品 | 關於我們',
           login: false,
           admin: false
         }
@@ -58,7 +58,7 @@ const routes = [
         name: 'News',
         component: () => import('@/views/front/NewsView.vue'),
         meta: {
-          title: '發記冰品|最新消息',
+          title: '發記冰品 | 最新消息',
           login: false,
           admin: false
         }
@@ -68,7 +68,7 @@ const routes = [
         name: 'Introduce',
         component: () => import('@/views/front/IntroduceView.vue'),
         meta: {
-          title: '發記冰品|冰品介紹',
+          title: '發記冰品 | 冰品介紹',
           login: false,
           admin: false
         }
@@ -78,7 +78,7 @@ const routes = [
         name: 'Product',
         component: () => import('@/views/front/ProductView.vue'),
         meta: {
-          title: '發記冰品|快速預訂',
+          title: '發記冰品 | 快速預訂',
           login: false,
           admin: false
         }
@@ -88,7 +88,7 @@ const routes = [
         name: 'Content',
         component: () => import('@/views/front/ContentView.vue'),
         meta: {
-          title: '發記冰品|關於我們',
+          title: '發記冰品 | 關於我們',
           login: false,
           admin: false
         }
@@ -98,7 +98,7 @@ const routes = [
         name: 'Cart',
         component: () => import('@/views/front/CartView.vue'),
         meta: {
-          title: '發記冰品|我的購物車',
+          title: '發記冰品 | 我的購物車',
           login: false,
           admin: false
         }
@@ -108,7 +108,7 @@ const routes = [
         name: 'Signup',
         component: () => import('@/views/front/SignUp.vue'),
         meta: {
-          title: '發記冰品|註冊登入',
+          title: '發記冰品 | 註冊登入',
           login: false,
           admin: false
         }
@@ -118,7 +118,7 @@ const routes = [
         name: 'Member',
         component: () => import('@/views/front/MemberView.vue'),
         meta: {
-          title: '發記冰品|會員專區',
+          title: '發記冰品 | 會員專區',
           login: true,
           admin: false
         }
@@ -128,7 +128,7 @@ const routes = [
         name: 'Orders',
         component: () => import('@/views/front/OrdersView.vue'),
         meta: {
-          title: '發記冰品|訂單查詢',
+          title: '發記冰品 | 訂單查詢',
           login: true,
           admin: false
         }
@@ -138,7 +138,7 @@ const routes = [
         name: 'Modification',
         component: () => import('@/views/front/ModificationView.vue'),
         meta: {
-          title: '發記冰品|資料修改',
+          title: '發記冰品 | 資料修改',
           login: true,
           admin: false
         }
@@ -154,7 +154,7 @@ const routes = [
         name: 'AdminHome',
         component: () => import('@/views/admin/HomeView.vue'),
         meta: {
-          title: '發記冰品|後台管理',
+          title: '發記冰品 | 後台管理',
           login: true,
           admin: true
         }
@@ -164,7 +164,7 @@ const routes = [
         name: 'AdminProducts',
         component: () => import('@/views/admin/ProductsView.vue'),
         meta: {
-          title: '發記冰品|後台商品管理',
+          title: '發記冰品 | 後台商品管理',
           login: true,
           admin: true
 
@@ -175,7 +175,7 @@ const routes = [
         name: 'AdminOrders',
         component: () => import('@/views/admin/OrdersView.vue'),
         meta: {
-          title: '發記冰品|後台訂單管理',
+          title: '發記冰品 | 後台訂單管理',
           login: true,
           admin: true
         }
@@ -185,7 +185,7 @@ const routes = [
         name: 'AdminMembers',
         component: () => import('@/views/admin/MembersView.vue'),
         meta: {
-          title: '發記冰品|後台會員管理',
+          title: '發記冰品 | 後台會員管理',
           login: true,
           admin: true
         }

@@ -41,14 +41,13 @@ apiAuth.interceptors.request.use(config => {
 // 3-1. 如果舊換新成功，修改 apiAuth.get('/users/me') 的 jwt 為新的後送出
 // 3-2. 如果舊換新失敗，將 apiAuth.get('/users/me') 的錯誤回傳
 
-// apiAuth.interceptors.response(成功時執行,失敗時執行)
+// apiAuth.interceptors.response.use(成功時執行,失敗時執行)
 apiAuth.interceptors.response.use((res) => {
-  // 成功時執行原本資料
   return res
 }, (error) => {
   // 如果失敗有收到回應
   if (error.response) {
-    // 如果錯誤訊息是jwt 過期，且不是舊換新請求
+    // 如果是 jwt 過期，且不是舊換新請求
     if (error.response.data.message === 'JWT 過期' && error.config.url !== '/users/extend') {
       const user = useUserStore()
       // 傳送舊換新請求
@@ -69,7 +68,7 @@ apiAuth.interceptors.response.use((res) => {
         })
     }
   }
-  // 如果請求沒回應，或不是過期的錯誤，就回傳原錯誤到呼叫的地方
+  // 如果請求沒回應，或不是過期的錯誤，回傳原錯誤到呼叫的地方
   return Promise.reject(error)
 })
 
