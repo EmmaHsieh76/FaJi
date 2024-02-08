@@ -7,6 +7,7 @@ import mongoose from 'mongoose'
 // cors 是否允許跨域請求
 import cors from 'cors'
 import routeUsers from './routes/users.js'
+import routerProducts from './routes/products.js'
 import { StatusCodes } from 'http-status-codes'
 // 登入註冊策略
 import './passport/passport.js'
@@ -49,6 +50,8 @@ app.use((_, req, res, next) => {
 
 // 把/users應用到routeUsers
 app.use('/users', routeUsers)
+// 把/products應用到routerProducts
+app.use('/products', routerProducts)
 
 // all() => 所有的HTTP請求方法，ex: get,post,put,delete
 // * => 所有的路徑
