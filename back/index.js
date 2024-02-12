@@ -6,8 +6,11 @@ import express from 'express'
 import mongoose from 'mongoose'
 // cors 是否允許跨域請求
 import cors from 'cors'
+// 使用者路由
 import routeUsers from './routes/users.js'
+// 產品路由
 import routerProducts from './routes/products.js'
+// 狀態碼
 import { StatusCodes } from 'http-status-codes'
 // 登入註冊策略
 import './passport/passport.js'
