@@ -22,7 +22,7 @@ const schema = new Schema({
     required: [true, '缺少商品分類'],
     // 值必須是以下其中一個
     enum: {
-      values: ['期間限定', '熱門商品', '新品上市', '經典口味'],
+      values: ['人氣商品', '期間限定', '經典口味', '新品上市'],
       message: '商品分類錯誤'
     }
   },
