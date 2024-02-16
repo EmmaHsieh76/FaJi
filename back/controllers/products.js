@@ -223,7 +223,7 @@ export const edit = async (req, res) => {
   }
 }
 
-export const remove = async (req, res) => { 
+export const remove = async (req, res) => {
   try {
     if (!validator.isMongoId(req.params.id)) throw new Error('ID')
 

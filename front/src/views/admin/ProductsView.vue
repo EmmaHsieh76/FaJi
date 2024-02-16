@@ -20,59 +20,60 @@
       @update:page="tableLoadItems"
       hover
       >
-      <template #top>
-        <v-row class="mb-6">
-          <v-col cols="8" class="d-flex justify-start align-center">
-            <v-btn color="blue-darken-4" variant="outlined" @click="openDialog()"
-            size="x-large"
-            >新增商品
-            </v-btn>
-          </v-col>
-          <v-col cols="4">
-            <v-card
-              color="grey-lighten-5"
-              max-width="40vw"
-            >
-              <v-card-text>
-                <v-text-field
-                label="搜尋商品"
-                clearable
-                density="compact"
-                variant="outlined"
-                hide-details
-                color="blue-darken-4"
-                append-inner-icon="mdi-magnify"
-                v-model="tableSearch"
-                @click:append="tableApplySearch"
-                @keydown.enter="tableApplySearch"
-                >
-                </v-text-field>
-              </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-      </template>
-      <template #[`item.image`]="{item}">
-        <v-img :src="item.image" height="13vh"></v-img>
-      </template>
-      <template #[`item.sell`]="{item}">
-        <v-icon :icon="item.sell ? 'mdi-check':'mdi-minus'"
-        size="large"></v-icon>
-      </template>
-      <template #[`item.edit`]="{item}">
-       <v-btn icon="mdi-pencil" variant="text"
-       size="large"
-      color="blue-darken-4"
-       @click="openDialog(item)"
-       ></v-btn>
-      </template>
-      <template #[`item.remove`]="{item}">
-        <v-btn icon="mdi-delete" variant="text" color="seventh" @click="openDialogRemove(item)"></v-btn>
-      </template>
+        <template #top>
+          <v-row class="mb-6">
+            <v-col cols="8" class="d-flex justify-start align-center">
+              <v-btn color="blue-darken-4" variant="outlined" @click="openDialog()"
+              size="x-large"
+              >新增商品
+              </v-btn>
+            </v-col>
+            <v-col cols="4">
+              <v-card
+                color="grey-lighten-5"
+                max-width="40vw"
+              >
+                <v-card-text>
+                  <v-text-field
+                  label="搜尋商品"
+                  clearable
+                  density="compact"
+                  variant="outlined"
+                  hide-details
+                  color="blue-darken-4"
+                  append-inner-icon="mdi-magnify"
+                  v-model="tableSearch"
+                  @click:append="tableApplySearch"
+                  @keydown.enter="tableApplySearch"
+                  >
+                  </v-text-field>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </template>
+        <template #[`item.image`]="{item}">
+          <v-img :src="item.image" height="13vh"></v-img>
+        </template>
+        <template #[`item.sell`]="{item}">
+          <v-icon :icon="item.sell ? 'mdi-check':'mdi-minus'"
+          size="large"></v-icon>
+        </template>
+        <template #[`item.edit`]="{item}">
+        <v-btn icon="mdi-pencil" variant="text"
+        size="large"
+        color="blue-darken-4"
+        @click="openDialog(item)"
+        ></v-btn>
+        </template>
+        <template #[`item.remove`]="{item}">
+          <v-btn icon="mdi-delete" variant="text" color="seventh" @click="openDialogRemove(item)"></v-btn>
+        </template>
       </VDataTableServer>
     </v-col>
   </v-row>
 </v-container>
+
 <!-- 刪除商品確認視窗 -->
 <v-dialog v-model="dialogRemove" width="300px">
   <v-card rounded="xl">
@@ -84,6 +85,7 @@
     </v-card-actions>
   </v-card>
 </v-dialog>
+
 <!-- persistent 點擊對話框外無反應 -->
 <v-dialog v-model="dialog" persistent width="500px">
   <v-form :disabled="isSubmitting" @submit.prevent="submit">
@@ -158,6 +160,9 @@ const dialog = ref(false)
 // 表單對話框正在編輯的商品 id ，空字串為新增商品
 const dialogId = ref('')
 
+// 表格裡刪除對話框開啟的狀態
+const dialogRemove = ref(false)
+
 // 開啟編輯對話框
 const openDialog = (item) => {
   if (item) {
@@ -188,7 +193,6 @@ const openDialogRemove = (item) => {
 
 // 關閉確認刪除對話框
 const closeDialogRemove = () => {
-  dialogId.value = ''
   dialogRemove.value = false
 }
 
@@ -340,7 +344,7 @@ const tableHeaders = [
   { title: '分類', align: 'center', sortable: true, key: 'category' },
   { title: '上架', align: 'center', sortable: true, key: 'sell' },
   { title: '編輯', align: 'center', sortable: false, key: 'edit' },
-  { title: '刪除', align: 'center', sortable: false, key: 'delete' }
+  { title: '刪除', align: 'center', sortable: false, key: 'remove' }
 ]
 // 表格載入狀態
 const tableLoading = ref(true)
