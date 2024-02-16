@@ -23,10 +23,10 @@
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
-  <v-app-bar color="yellow-darken-4">
+  <v-app-bar color="third">
     <v-container class="d-flex align-center">
-      <v-btn to="/" :active="false">
-        <v-app-bar-title class="font-weight-bold"> 發記冰品 </v-app-bar-title>
+      <v-btn to="/" :active="false" color="ninth">
+        <v-app-bar-title> 發記冰品 </v-app-bar-title>
       </v-btn>
       <v-spacer></v-spacer>
       <!-- 手機板導覽列 -->
@@ -36,7 +36,7 @@
       <!-- 電腦版導覽列 -->
       <template v-else>
         <template v-for="item in navItems" :key="item.to">
-          <v-btn :to="item.to" v-if="item.show">{{ item.text }}</v-btn>
+          <v-btn :to="item.to" v-if="item.show" color="ninth" >{{ item.text }}</v-btn>
         </template>
         <v-btn prepend-icon="mdi-logout" v-if="user.isLogin" @click="logout">登出</v-btn>
       </template>
@@ -73,15 +73,15 @@ const drawer = ref(false)
 // computed=>判斷登入狀態，顯示不同的導覽列
 const navItems = computed(() => {
   return [
-    { to: '/about', text: '關於發記', show: true && !user.isAdmin},
+    { to: '/about', text: '關於發記', show: true && !user.isAdmin },
     { to: '/news', text: '最新消息', show: true && !user.isAdmin },
-    { to: '/introduce', text: '冰品介紹', show: true && !user.isAdmin},
+    { to: '/introduce', text: '冰品介紹', show: true && !user.isAdmin },
     { to: '/product', text: '快速預訂', show: true && !user.isAdmin },
     { to: '/content', text: '聯繫我們', show: true && !user.isAdmin },
-    { to: '/cart', text: '我的購物車', show: user.isLogin && !user.isAdmin},
+    { to: '/cart', text: '我的購物車', show: user.isLogin && !user.isAdmin },
     // show: !user.isLogin => 使用者沒有登入時顯示
     { to: '/signup', text: '會員專區', show: !user.isLogin },
-    { to: '/member', text: '會員專區', show: user.isLogin && !user.isAdmin},
+    { to: '/member', text: '會員專區', show: user.isLogin && !user.isAdmin },
     { to: '/admin', text: '管理', show: user.isLogin && user.isAdmin }
   ]
 })
@@ -119,11 +119,13 @@ const logout = async () => {
 
 <style scoped lang="scss">
 
-.v-list-item-title{
-  display: flex;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: 700;
-  align-items: center;
-}
+ .v-app-bar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+ }
+
+ .v-btn{
+  font-size: 1.2rem;
+  font-weight: bold;
+ }
 </style>

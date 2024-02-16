@@ -6,10 +6,84 @@
       <v-divider></v-divider>
     </v-col>
     <v-col cols="12">
-      <v-btn color="blue-darken-4" variant="tonal" @click="openDialog">新增商品</v-btn>
+      <VDataTableServer
+      v-model:items-per-page="tableItemsPerPage"
+      v-model:sort-by="tableSortBy"
+      v-model:page="tablePage"
+      :items="tableProducts"
+      :headers="tableHeaders"
+      :loading="tableLoading"
+      :items-length="tableItemsLength"
+      :search="tableSearch"
+      @update:items-per-page="tableLoadItems"
+      @update:sort-by="tableLoadItems"
+      @update:page="tableLoadItems"
+      hover
+      >
+      <template #top>
+        <v-row class="mb-6">
+          <v-col cols="8" class="d-flex justify-start align-center">
+            <v-btn color="blue-darken-4" variant="outlined" @click="openDialog()"
+            size="x-large"
+            >新增商品
+            </v-btn>
+          </v-col>
+          <v-col cols="4">
+            <v-card
+              color="grey-lighten-5"
+              max-width="40vw"
+            >
+              <v-card-text>
+                <v-text-field
+                label="搜尋商品"
+                clearable
+                density="compact"
+                variant="outlined"
+                hide-details
+                color="blue-darken-4"
+                append-inner-icon="mdi-magnify"
+                v-model="tableSearch"
+                @click:append="tableApplySearch"
+                @keydown.enter="tableApplySearch"
+                >
+                </v-text-field>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </template>
+      <template #[`item.image`]="{item}">
+        <v-img :src="item.image" height="13vh"></v-img>
+      </template>
+      <template #[`item.sell`]="{item}">
+        <v-icon :icon="item.sell ? 'mdi-check':'mdi-minus'"
+        size="large"></v-icon>
+      </template>
+      <template #[`item.edit`]="{item}">
+       <v-btn icon="mdi-pencil" variant="text"
+       size="large"
+      color="blue-darken-4"
+       @click="openDialog(item)"
+       ></v-btn>
+      </template>
+      <template #[`item.remove`]="{item}">
+        <v-btn icon="mdi-delete" variant="text" color="seventh" @click="openDialogRemove(item)"></v-btn>
+      </template>
+      </VDataTableServer>
     </v-col>
   </v-row>
 </v-container>
+<!-- 刪除商品確認視窗 -->
+<v-dialog v-model="dialogRemove" width="300px">
+  <v-card rounded="xl">
+    <v-card-text>確認要刪除商品嗎?</v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="seventh" rounded @click="closeDialogRemove">取消</v-btn>
+      <v-btn color="sixth" rounded @click="remove">確定刪除</v-btn>
+    </v-card-actions>
+  </v-card>
+</v-dialog>
 <!-- persistent 點擊對話框外無反應 -->
 <v-dialog v-model="dialog" persistent width="500px">
   <v-form :disabled="isSubmitting" @submit.prevent="submit">
@@ -85,8 +159,17 @@ const dialog = ref(false)
 const dialogId = ref('')
 
 // 開啟編輯對話框
-const openDialog = () => {
-  dialogId.value = ''
+const openDialog = (item) => {
+  if (item) {
+    dialogId.value = item._id
+    name.value.value = item.name
+    price.value.value = item.price
+    description.value.value = item.description
+    category.value.value = item.category
+    sell.value.value = item.sell
+  } else {
+    dialogId.value = ''
+  }
   dialog.value = true
 }
 
@@ -95,6 +178,18 @@ const closeDialog = () => {
   dialog.value = false
   resetForm()
   fileAgent.value.deleteFileRecord()
+}
+
+// 打開確認刪除對話框
+const openDialogRemove = (item) => {
+  dialogId.value = item._id
+  dialogRemove.value = true
+}
+
+// 關閉確認刪除對話框
+const closeDialogRemove = () => {
+  dialogId.value = ''
+  dialogRemove.value = false
 }
 
 // 分類
@@ -143,7 +238,10 @@ const fileRecords = ref([])
 const rawFileRecords = ref([])
 
 const submit = handleSubmit(async (values) => {
-  if (fileRecords.value.length === 0 || fileRecords.value[0].error) return
+  // 如果檔案有錯誤就不送出
+  if (fileRecords.value > 0 && fileRecords.value[0].error) return
+  // 如果是做新增但是檔案長度沒有任何東西就不送出
+  if (dialogId.value === '' && fileRecords.value.length === 0) return
   try {
     // 建立 formData 物件
     // 使用 fd.append(欄位,值) 將資料放進去
@@ -152,11 +250,20 @@ const submit = handleSubmit(async (values) => {
     for (const key in values) {
       fd.append(key, values[key])
     }
-    fd.append('image', fileRecords.value[0].file)
-    await apiAuth.post('/products', fd)
 
+    if (fileRecords.value.length > 0) {
+      fd.append('image', fileRecords.value[0].file)
+    }
+
+    // 判斷目前是新增還是編輯，對不同路徑發請求
+    if (dialogId.value === '') {
+      await apiAuth.post('/products', fd)
+    } else {
+      await apiAuth.patch('/products/' + dialogId.value, fd)
+    }
     createSnackbar({
-      text: '新增成功',
+      // 如果現在是新增就顯示新增成功，否則顯示編輯成功
+      text: dialogId.value === '' ? '新增成功' : '編輯成功',
       // 不要出現關閉的按鈕
       showCloseButton: false,
       // snackbarProps => vuetify的snackbar樣式
@@ -167,6 +274,8 @@ const submit = handleSubmit(async (values) => {
       }
     })
     closeDialog()
+    // 重新載入表格資料
+    tableApplySearch()
   } catch (error) {
     console.log(error)
     const text = error?.response?.data?.message || '發生錯誤，請稍後再試'
@@ -181,4 +290,112 @@ const submit = handleSubmit(async (values) => {
     })
   }
 })
+// 刪除商品
+const remove = async () => {
+  try {
+    await apiAuth.delete('/products/' + dialogId.value)
+    createSnackbar({
+      text: '刪除成功',
+      showCloseButton: false,
+      snackbarProps: {
+        timeout: 2000,
+        color: 'green',
+        location: 'bottom'
+      }
+    })
+    closeDialogRemove()
+    tableLoadItems() // 重新載入商品列表
+  } catch (error) {
+    console.log(error)
+    const text = error?.response?.data?.message || '發生錯誤，請稍後再試'
+    createSnackbar({
+      text,
+      showCloseButton: false,
+      snackbarProps: {
+        timeout: 2000,
+        color: 'red',
+        location: 'bottom'
+      }
+    })
+  }
+}
+
+// 表格
+// 表格每頁幾個
+const tableItemsPerPage = ref(10)
+// 表格排序
+const tableSortBy = ref([
+  { key: 'createdAt', order: 'desc' }
+])
+// 表格頁碼
+const tablePage = ref(1)
+// 表格商品資料陣列
+const tableProducts = ref([])
+// 表格欄位設定
+const tableHeaders = [
+  { title: '圖片', align: 'center', sortable: false, key: 'image' },
+  { title: '名稱', align: 'center', sortable: true, key: 'name' },
+  { title: '價格', align: 'center', sortable: true, key: 'price' },
+  // { title: '說明', align: 'center', sortable: true, key: 'description' },
+  { title: '分類', align: 'center', sortable: true, key: 'category' },
+  { title: '上架', align: 'center', sortable: true, key: 'sell' },
+  { title: '編輯', align: 'center', sortable: false, key: 'edit' },
+  { title: '刪除', align: 'center', sortable: false, key: 'delete' }
+]
+// 表格載入狀態
+const tableLoading = ref(true)
+// 表格全部資料數
+const tableItemsLength = ref(0)
+// 表格搜尋文字
+const tableSearch = ref('')
+// 表格載入資料
+const tableLoadItems = async () => {
+  // 載入狀態
+  tableLoading.value = true
+  try {
+    // .get( '網址', 請求的設定)
+    // .post('網址', 送出的資料, 請求的設定)
+    const { data } = await apiAuth.get('/products/all', {
+      params: {
+        page: tablePage.value,
+        itemsPerPage: tableItemsPerPage.value,
+        sortBy: tableSortBy.value[0]?.key || 'createdAt',
+        sortOrder: tableSortBy.value[0]?.order === 'asc' ? 1 : -1,
+        search: tableSearch.value
+      }
+    })
+    tableProducts.value.splice(0, tableProducts.value.length, ...data.result.data)
+    tableItemsLength.value = data.result.total
+  } catch (error) {
+    console.log(error)
+    const text = error?.response?.data?.message || '發生錯誤，請稍後再試'
+    createSnackbar({
+      text,
+      showCloseButton: false,
+      snackbarProps: {
+        timeout: 2000,
+        color: 'red',
+        location: 'bottom'
+      }
+    })
+  }
+  tableLoading.value = false
+}
+tableLoadItems()
+
+// 表格套用搜尋
+const tableApplySearch = () => {
+  tablePage.value = 1
+  tableLoadItems()
+}
+
 </script>
+
+<style>
+span{
+  font-weight: 700;
+}
+tr{
+  font-size: 1rem;
+}
+</style>

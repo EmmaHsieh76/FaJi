@@ -3,7 +3,7 @@
   <v-card class="mx-auto my-0 my-sm-6" max-width="500"  elevation="4">
     <v-tabs
       v-model="tab"
-      color="yellow-darken-4"
+      color="forth"
       align-tabs="center"
       fixed-tabs
     >
