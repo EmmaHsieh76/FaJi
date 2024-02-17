@@ -57,12 +57,12 @@
         </v-table>
       </v-col>
       <v-col cols="4">
-        <div>
-          <h2>粉粿</h2>
+        <v-sheet>
+          <h2><font color="#D92323">【人氣商品】</font>&nbsp;粉粿</h2>
           <v-divider></v-divider>
           <p class="mt-2">精選優質地瓜澱粉</p>
           <p>口感Q彈有嚼勁</p>
-          <p>搭配古法熬煮的濃郁紅糖食用</p>
+          <p>直接搭配古法熬煮的濃郁紅糖即可食用</p>
           <p>變換吃法:搭配愛玉、鳳梨、牛奶等，以增添層次感和風味</p>
           <br>
           <br>
@@ -71,17 +71,26 @@
             請於收到後立即放入冰箱冷藏保存，並於冷藏3天內食用完畢，以確保粉粿新鮮美味。
           </p>
           <br>
-          <v-text-field
-            v-model="selectedNumber"
-            width="50px"
-            type="number"
-            variant="outlined"
-            :min="0"
-            :max="10"
-            :step="1"
-          ></v-text-field>
-          <v-btn color="seventh" prepend-icon="mdi-cart"  @click="addCart">加入購物車</v-btn>
-        </div>
+          <v-row>
+            <v-col clos="3" class="pt-5">
+               <p class="font-weight-bold">售價&nbsp;{{50}}</p>
+            </v-col>
+            <v-col cols="3">
+              <v-text-field
+                v-model="selectedNumber"
+                type="number"
+                variant="outlined"
+                :min="0"
+                :step="1"
+                style="width: 80px;padding:0px"
+              ></v-text-field>
+            </v-col>
+            <v-spacer></v-spacer>
+            <v-col clos="6">
+              <v-btn color="seventh" prepend-icon="mdi-cart"  @click="addCart">加入購物車</v-btn>
+            </v-col>
+          </v-row>
+        </v-sheet>
       </v-col>
   </v-row>
   </v-container>
@@ -96,7 +105,7 @@ import { useSnackbar } from 'vuetify-use-dialog'
 const { api } = useApi()
 const createSnackbar = useSnackbar()
 
-const selectedNumber = ref(null)
+const selectedNumber = ref(0)
 
 const products = ref([])
 
@@ -140,5 +149,11 @@ onMounted(async () => {
 <style>
 th{
   color:#3f000f
+}
+
+.v-field__input {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  min-height: 40px;
 }
 </style>
