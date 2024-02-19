@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { create, login, logout, extend, getProfile } from '../controllers/users.js'
+import { create, login, logout, extend, getProfile, editCart, getCart } from '../controllers/users.js'
 import * as auth from '../middlewares/auth.js'
 
 const router = Router()
@@ -12,5 +12,9 @@ router.delete('/logout', auth.jwt, logout)
 router.patch('/extend', auth.jwt, extend)
 // 取得使用者資料
 router.get('/me', auth.jwt, getProfile)
+// 修改購物車資料
+router.patch('/cart', auth.jwt, editCart)
+// 拿取購物車資料
+router.get('/cart', auth.jwt, getCart)
 
 export default router

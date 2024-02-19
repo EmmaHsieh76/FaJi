@@ -23,7 +23,7 @@
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
-  <v-app-bar color="third">
+  <v-app-bar color="third" style="height: 64px;">
     <v-container class="d-flex align-center">
       <v-btn to="/" :active="false" color="ninth">
         <v-app-bar-title> 發記冰品 </v-app-bar-title>
@@ -76,7 +76,7 @@ const navItems = computed(() => {
     { to: '/about', text: '關於發記', show: true && !user.isAdmin },
     { to: '/news', text: '最新消息', show: true && !user.isAdmin },
     { to: '/introduce', text: '冰品介紹', show: true && !user.isAdmin },
-    { to: '/product', text: '快速預訂', show: true && !user.isAdmin },
+    { to: '/product', text: '快速預訂', show: true },
     { to: '/content', text: '聯繫我們', show: true && !user.isAdmin },
     { to: '/cart', text: '我的購物車', show: user.isLogin && !user.isAdmin },
     // show: !user.isLogin => 使用者沒有登入時顯示

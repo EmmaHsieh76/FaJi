@@ -21,7 +21,7 @@
       hover
       >
         <template #top>
-          <v-row class="mb-6">
+          <v-row class="mb-1">
             <v-col cols="8" class="d-flex justify-start align-center">
               <v-btn color="blue-darken-4" variant="outlined" @click="openDialog()"
               size="x-large"
@@ -53,7 +53,7 @@
           </v-row>
         </template>
         <template #[`item.image`]="{item}">
-          <v-img :src="item.image" height="13vh"></v-img>
+          <v-img :src="item.images[0]" height="13vh"></v-img>
         </template>
         <template #[`item.sell`]="{item}">
           <v-icon :icon="item.sell ? 'mdi-check':'mdi-minus'"
@@ -122,11 +122,12 @@
       <VueFileAgent
       v-model="fileRecords"
       v-model:rawModelValue="rawFileRecords"
+      multiple="true"
       accept="image/png, image/jpeg, image/jpg"
       deletable
       :error-text="{type:'檔案格式不支援',size:'檔案超過 1MB 限制'}"
       help-text="點擊檔案或拖曳檔案至此"
-      :max-files="1"
+      :max-files="3"
       max-size="1MB"
       ref="fileAgent"
       ></VueFileAgent>
@@ -256,7 +257,12 @@ const submit = handleSubmit(async (values) => {
     }
 
     if (fileRecords.value.length > 0) {
-      fd.append('image', fileRecords.value[0].file)
+      // 原本單張圖的寫法
+      // fd.append('image', fileRecords.value[0].file)
+      // 多張圖寫法
+      for (const file of fileRecords.value) {
+        fd.append('images', file.file)
+      }
     }
 
     // 判斷目前是新增還是編輯，對不同路徑發請求

@@ -3,6 +3,8 @@ import { StatusCodes } from 'http-status-codes'
 // `jsonwebtoken` 是一個用於創建和驗證 JSON Web Tokens 的 Node.js 套件。JSON Web Tokens 是一種用於安全傳輸資訊的方式，常用於身份驗證和資訊交換。
 // 登入要嵌一組token， jsonwebtoken=>來自passport-jwt
 import jwt from 'jsonwebtoken'
+import products from '../models/products.js'
+import validator from 'validator'
 
 // 建立使用者
 export const create = async (req, res) => {
@@ -149,6 +151,87 @@ export const getProfile = async (req, res) => {
     })
   } catch (error) {
     // INTERNAL_SERVER_ERROR => http狀態碼500
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: '未知錯誤'
+    })
+  }
+}
+
+// 修改購物車
+export const editCart = async (req, res) => {
+  try {
+    // 檢查商品 id 格式對不對
+    if (!validator.isMongoId(req.body.product)) throw new Error('ID')
+
+    // 尋找購物車內有沒有傳入的商品 ID
+    const idx = req.user.cart.findIndex(item => item.product.toString() === req.body.product)
+    if (idx > -1) {
+      // 修改購物車內已有的商品數量
+      const quantity = req.user.cart[idx].quantity + parseInt(req.body.quantity)
+      // 檢查數量
+      // 小於 0，移除
+      // 大於 0，修改
+      if (quantity <= 0) {
+        req.user.cart.splice(idx, 1)
+      } else {
+        req.user.cart[idx].quantity = quantity
+      }
+    } else {
+      // 檢查商品是否存在或已下架
+      const product = await products.findById(req.body.product).orFail(new Error('NOT FOUND'))
+      if (!product.sell) {
+        throw new Error('NOT FOUND')
+      } else {
+        req.user.cart.push({
+          product: product._id,
+          quantity: req.body.quantity
+        })
+      }
+    }
+    await req.user.save()
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: '',
+      result: req.user.cartQuantity
+    })
+  } catch (error) {
+    console.log(error)
+    if (error.name === 'CastError' || error.message === 'ID') {
+      res.status(StatusCodes.BAD_REQUEST).json({
+        success: false,
+        message: 'ID 格式錯誤'
+      })
+    } else if (error.message === 'NOT FOUND') {
+      res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        message: '查無商品'
+      })
+    } else if (error.name === 'ValidationError') {
+      const key = Object.keys(error.errors)[0]
+      const message = error.errors[key].message
+      res.status(StatusCodes.BAD_REQUEST).json({
+        success: false,
+        message
+      })
+    } else {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        success: false,
+        message: '未知錯誤'
+      })
+    }
+  }
+}
+
+export const getCart = async (req, res) => {
+  try {
+    const result = await users.findById(req.user._id, 'cart').populate('cart.product')
+    res.status(StatusCodes.OK).json({
+      success: true,
+      message: '',
+      result: result.cart
+    })
+  } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: '未知錯誤'

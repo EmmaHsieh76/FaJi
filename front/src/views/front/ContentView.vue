@@ -1,14 +1,14 @@
 <template>
 <v-container>
   <v-row class="mt-7">
-    <v-col cols="6" class="d-flex justify-center">
+    <v-col cols="6" class="d-flex justify-center align-center">
     <v-img
     :width="500"
-    :height="420"
+    :height="500"
     aspect-ratio="1/1"
     cover
-    src="../../../public/7.jpg"
-    rounded="xl"
+    src="../../../public/carousel-6.jpg"
+    rounded="lg"
     >
     </v-img>
     </v-col>

@@ -4,7 +4,11 @@ import validator from 'validator'
 
 export const create = async (req, res) => {
   try {
-    req.body.image = req.file.path
+    // 單張圖寫法
+    // req.body.image = req.file.path
+    // 多張圖寫法
+    req.body.images = req.files.map(file => file.path)
+
     const result = await products.create(req.body)
     res.status(StatusCodes.OK).json({
       success: true,

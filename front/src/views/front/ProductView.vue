@@ -23,7 +23,7 @@
       <v-col cols="4">
         <v-table>
           <tr >
-            <td colspan="2">
+            <td colspan="2" class="d-flex justify-center">
               <v-img
               :width="350"
               :height="350"
@@ -73,7 +73,7 @@
           <br>
           <v-row>
             <v-col clos="3" class="pt-5">
-               <p class="font-weight-bold">售價&nbsp;{{50}}</p>
+                <p class="font-weight-bold">$&nbsp;{{50}}</p>
             </v-col>
             <v-col cols="3">
               <v-text-field
@@ -94,13 +94,27 @@
       </v-col>
   </v-row>
   </v-container>
-
+  <!-- ====================================== -->
+  <!-- 上課教學 -->
+  <v-container>
+    <v-row>
+      <v-col cols="12">
+        <h1>購物網</h1>
+      </v-col>
+      <v-divider></v-divider>
+      <v-col cols="12" md="6" lg="4" v-for="product in products" :key="product._id">
+        <ProductCard v-bind="product"></ProductCard>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script setup>
 import { ref, onMounted, nextTick } from 'vue'
 import { useApi } from '@/composables/axios'
 import { useSnackbar } from 'vuetify-use-dialog'
+import ProductCard from '@/components/ProductCard.vue'
+import gsap from 'gsap'
 
 const { api } = useApi()
 const createSnackbar = useSnackbar()
@@ -128,6 +142,7 @@ onMounted(async () => {
     })
     products.value.push(...data.result.data)
     await nextTick()
+    // gsap用法
     gsap
       .to('.product-card', { opacity: 1, duration: 0.5 })
   } catch (error) {

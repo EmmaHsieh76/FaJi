@@ -9,8 +9,8 @@ const schema = new Schema({
     type: Number,
     required: [true, '缺少商品價格']
   },
-  image: {
-    type: String,
+  images: {
+    type: [String],
     required: [true, '缺少商品圖片']
   },
   description: {

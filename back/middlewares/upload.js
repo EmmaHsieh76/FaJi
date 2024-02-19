@@ -35,7 +35,9 @@ const upload = multer({
 
 // 處理檔案大小錯誤及格式錯誤
 export default (req, res, next) => {
-  upload.single('image')(req, res, error => {
+  // 單張圖片用single('image')
+  // 多張圖片用陣列array('image',3)
+  upload.array('images', 3)(req, res, error => {
     if (error instanceof multer.MulterError) {
       // 預設訊息是上傳錯誤
       let message = '上傳錯誤'

@@ -3,7 +3,7 @@
     cycle
     hide-delimiter-background
     show-arrows="hover"
-    height="100vh"
+    height="calc(100vh - 64px)"
   >
     <v-carousel-item
       v-for="(item, i) in items"
@@ -20,16 +20,16 @@ import { ref } from 'vue'
 
 const items = ref([
   {
-    src: 'https://cdn.vuetifyjs.com/images/cards/docks.jpg'
+    src: '../../../public/Carousel-3.jpg'
   },
   {
-    src: 'https://picsum.photos/1920/1080/?random=1'
+    src: '../../../public/Carousel-4.jpg'
   },
   {
-    src: 'https://picsum.photos/1920/1080/?random=2'
+    src: '../../../public/Carousel-2.jpg'
   },
   {
-    src: 'https://picsum.photos/1920/1080/?random=3'
+    src: '../../../public/Carousel-5.jpg'
   }
 ])
 
