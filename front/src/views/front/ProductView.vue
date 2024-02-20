@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <!-- <v-container>
     <v-row class="mt-16">
       <v-col cols="3" class="d-flex justify-center">
         <v-card
@@ -93,16 +93,16 @@
         </v-sheet>
       </v-col>
   </v-row>
-  </v-container>
+  </v-container> -->
   <!-- ====================================== -->
   <!-- 上課教學 -->
   <v-container>
     <v-row>
       <v-col cols="12">
-        <h1>購物網</h1>
+        <h1 class="text-center">商品資訊</h1>
       </v-col>
       <v-divider></v-divider>
-      <v-col cols="12" md="6" lg="4" v-for="product in products" :key="product._id">
+      <v-col cols="12" md="6" lg="4" v-for="product in products" :key="product._id" class="d-flex justify-center">
         <ProductCard v-bind="product"></ProductCard>
       </v-col>
     </v-row>

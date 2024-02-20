@@ -99,7 +99,7 @@ const routes = [
         component: () => import('@/views/front/CartView.vue'),
         meta: {
           title: '發記冰品 | 我的購物車',
-          login: false,
+          login: true,
           admin: false
         }
       },
@@ -109,6 +109,16 @@ const routes = [
         component: () => import('@/views/front/SignUp.vue'),
         meta: {
           title: '發記冰品 | 註冊登入',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: 'products/:id',
+        name: 'ProductDetail',
+        component: () => import('@/views/front/ProductDetail.vue'),
+        meta: {
+          title: '發記冰品 | 商品詳細資訊',
           login: false,
           admin: false
         }

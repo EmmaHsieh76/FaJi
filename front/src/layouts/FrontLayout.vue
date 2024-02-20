@@ -5,27 +5,35 @@
     temporary
     v-if="isMobile"
     location="left"
-    style="width:100vw;"
+    width="256"
   >
     <v-list nav>
       <template v-for="item in navItems" :key="item.to">
         <!-- :to綁定可以換頁 -->
         <v-list-item :to="item.to" v-if="item.show">
+          <template #append>
+            <v-badge
+              color="seventh"
+              :content="user.cart"
+              v-if="item.to ==='/cart'"
+              inline
+            ></v-badge>
+          </template>
           <v-list-item-title class="list-style"
           >{{ item.text }}
           </v-list-item-title>
         </v-list-item>
       </template>
       <v-list-item v-if="user.isLogin" @click="logout">
-        <v-list-item-title class="" d-flex justify-center>
-          <v-icon start icon="mdi-logout"></v-icon>登出
+        <v-list-item-title class="text-caption" d-flex justify-center >
+          <v-icon start size="medium" icon="mdi-logout"></v-icon>登出
         </v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
-  <v-app-bar color="third" style="height: 64px;">
+  <v-app-bar class="white" style="height: 64px;">
     <v-container class="d-flex align-center">
-      <v-btn to="/" :active="false" color="ninth">
+      <v-btn to="/" :active="false" color="third">
         <v-app-bar-title> 發記冰品 </v-app-bar-title>
       </v-btn>
       <v-spacer></v-spacer>
@@ -36,16 +44,40 @@
       <!-- 電腦版導覽列 -->
       <template v-else>
         <template v-for="item in navItems" :key="item.to">
-          <v-btn :to="item.to" v-if="item.show" color="ninth" >{{ item.text }}</v-btn>
+          <v-btn :to="item.to" v-if="item.show" color="ninth" >
+            {{ item.text }}
+            <v-badge color="seventh" :content="user.cart" v-if="item.to ==='/cart'" floating>
+            </v-badge>
+          </v-btn>
         </template>
-        <v-btn prepend-icon="mdi-logout" v-if="user.isLogin" @click="logout">登出</v-btn>
+        <v-btn prepend-icon="mdi-logout" v-if="user.isLogin" @click="logout" color="seventh">登出</v-btn>
       </template>
     </v-container>
   </v-app-bar>
 <!-- 每個分頁頁面內容 -->
 <v-main>
-  <router-view></router-view>
+  <router-view :key="$route.path"></router-view>
 </v-main>
+<v-footer class="d-flex flex-column pa-0"
+style="width:100vw;"
+>
+
+  <div class="px-4 py-2  text-center w-100 bg-third" >
+    <strong>
+      ©{{ new Date().getFullYear() }} &nbsp; - &nbsp; 發記冰品 Co.,Ltd. ALL RIGHTS RESERVED
+      <v-btn
+      v-for="icon in icons"
+      :key="icon"
+      class="ms-4"
+      :icon="icon.name"
+      :href="icon.link"
+      target="_blank"
+      variant="plain"
+      size="small"
+    ></v-btn>
+    </strong>
+  </div>
+</v-footer>
 </template>
 
 <script setup>
@@ -78,10 +110,11 @@ const navItems = computed(() => {
     { to: '/introduce', text: '冰品介紹', show: true && !user.isAdmin },
     { to: '/product', text: '快速預訂', show: true },
     { to: '/content', text: '聯繫我們', show: true && !user.isAdmin },
-    { to: '/cart', text: '我的購物車', show: user.isLogin && !user.isAdmin },
+    { to: '/cart', text: '我的購物車', show: user.isLogin },
     // show: !user.isLogin => 使用者沒有登入時顯示
     { to: '/signup', text: '會員專區', show: !user.isLogin },
-    { to: '/member', text: '會員專區', show: user.isLogin && !user.isAdmin },
+    // { to: '/orders', text: '訂單', show: user.isLogin },
+    { to: '/member', text: '會員專區', show: user.isLogin },
     { to: '/admin', text: '管理', show: user.isLogin && user.isAdmin }
   ]
 })
@@ -115,6 +148,17 @@ const logout = async () => {
   }
 }
 
+const icons = ref([
+  {
+    name: 'mdi-facebook',
+    link: 'https://www.facebook.com/Eurbgj/?locale=zh_TW'
+  },
+  {
+    name: 'mdi-instagram',
+    link: 'https://www.instagram.com'
+  }
+])
+
 </script>
 
 <style scoped lang="scss">
@@ -127,5 +171,15 @@ const logout = async () => {
  .v-btn{
   font-size: 1.2rem;
   font-weight: bold;
+ }
+
+ .bg-third{
+  background-color: #F9C80E;
+  color: #3f000f !important;;
+ }
+
+ .appbar-color{
+  background-color: #fff;
+  opacity: 0.7;
  }
 </style>
