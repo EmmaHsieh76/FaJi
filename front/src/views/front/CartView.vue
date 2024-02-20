@@ -37,7 +37,7 @@
     </v-data-table>
   </v-col>
   <v-col class="text-center" cols="12">
-    <p>總金額:{{total}}</p>
+    <p class="text-h5">總金額<strong class="text-red text-h4">${{total}}</strong>元</p>
     <v-btn color="seventh" :disabled="!canCheckout" :loading="isSubmitting" @click="checkout">結帳</v-btn>
   </v-col>
 </v-container>
@@ -165,4 +165,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.seventh{
+  color:"#D92323"!important;
+}
 </style>

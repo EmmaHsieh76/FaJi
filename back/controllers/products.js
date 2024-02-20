@@ -192,7 +192,7 @@ export const edit = async (req, res) => {
     if (!validator.isMongoId(req.params.id)) throw new Error('ID')
 
     // 因為前端有可能沒有傳圖片，所以無圖片時.?才不會出現undefined
-    req.body.image = req.file?.path
+    req.body.images = req.files?.map(file => file.path)
     // 去商品的model以id查東西，req.params.id=>要查的東西，req.body=>要更新的內容，runValidators=>要不要在更新時執行驗證，.orFail()=> id不存在會產生錯誤訊息
     await products.findByIdAndUpdate(req.params.id, req.body, { runValidators: true }).orFail(new Error('NOT FOUND'))
 

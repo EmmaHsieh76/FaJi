@@ -55,14 +55,12 @@
     </v-container>
   </v-app-bar>
 <!-- 每個分頁頁面內容 -->
-<v-main>
+<v-main style="min-height: 100vh;">
   <router-view :key="$route.path"></router-view>
 </v-main>
-<v-footer class="d-flex flex-column pa-0"
-style="width:100vw;"
->
-
-  <div class="px-4 py-2  text-center w-100 bg-third" >
+<v-footer class="pa-0">
+  <VRow class="text-center bg-third">
+    <VCol cols="12">
     <strong>
       ©{{ new Date().getFullYear() }} &nbsp; - &nbsp; 發記冰品 Co.,Ltd. ALL RIGHTS RESERVED
       <v-btn
@@ -76,7 +74,8 @@ style="width:100vw;"
       size="small"
     ></v-btn>
     </strong>
-  </div>
+    </VCol>
+  </VRow>
 </v-footer>
 </template>
 

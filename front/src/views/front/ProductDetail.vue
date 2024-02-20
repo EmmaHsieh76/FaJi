@@ -139,6 +139,8 @@ const submit = handleSubmit(async (values) => {
   }
 })
 
+const items = ref([])
+
 onMounted(async () => {
   try {
     const { data } = await api.get('/products/' + route.params.id)
@@ -151,6 +153,25 @@ onMounted(async () => {
     product.value.category = data.result.category
     // 讓頁面改成商品名稱
     document.title = `發記冰品 | ${product.value.name}`
+
+    // 麵包屑
+    items.value = [
+      {
+        title: '首頁',
+        disabled: false,
+        href: '/'
+      },
+      {
+        title: '快速預訂',
+        disabled: false,
+        href: '/product#/product'
+      },
+      {
+        title: `${product.value.name}`,
+        disabled: true,
+        href: '/product#/product/'
+      }
+    ]
   } catch (error) {
     const text = error?.response?.data?.message || '發生錯誤，請稍後再試'
     createSnackbar({
@@ -165,25 +186,6 @@ onMounted(async () => {
     router.push('/')
   }
 })
-
-// 麵包屑
-const items = ref([
-  {
-    title: '首頁',
-    disabled: false,
-    href: '/'
-  },
-  {
-    title: '快速預訂',
-    disabled: false,
-    href: '/product#/product'
-  },
-  {
-    title: '粉粿',
-    disabled: true,
-    href: '/product#/product/'
-  }
-])
 </script>
 
 <style scoped>
