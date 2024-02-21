@@ -1,7 +1,9 @@
 <template>
+<v-form>
 <v-container>
+  <v-row>
   <v-col cols="12">
-    <h1>購物車</h1>
+    <h1 class="text-center">購物清單</h1>
   </v-col>
   <v-divider></v-divider>
   <v-col cols="12">
@@ -36,11 +38,67 @@
       </template>
     </v-data-table>
   </v-col>
-  <v-col class="text-center" cols="12">
-    <p class="text-h5">總金額<strong class="text-red text-h4">${{total}}</strong>元</p>
-    <v-btn color="seventh" :disabled="!canCheckout" :loading="isSubmitting" @click="checkout">結帳</v-btn>
+  <v-col class="d-flex align-center justify-space-between" cols="12">
+    <p class="text-h5 font-weight-bold">總金額</p>
+    <p><strong class="text-red text-h4">NT.{{total}}</strong></p>
   </v-col>
+  <v-col cols="12">
+    <v-sheet height="100%" width="100%"  border rounded color="grey-lighten-3" style="">
+      <h4 class="ps-2 text-h5 font-weight-bold">【取貨人資料】</h4>
+    </v-sheet>
+  </v-col>
+  <v-col cols="12" md="3">
+    <VMenu
+      v-model="isMenuOpen"
+      :close-on-content-click="false">
+      <template #activator="{ props }">
+        <VTextField
+          label="取貨日期"
+          :model-value="selectedDate"
+          prepend-inner-icon="mdi-calendar-range"
+          color="forth"
+          readonly
+          v-bind="props"
+          :rules="[rules.required]" />
+      </template>
+      <VDatePicker
+        @input="isMenuOpen = false"
+        v-model="DateValue"
+        color="forth" />
+    </VMenu>
+  </v-col>
+  <v-col cols="12" md="3">
+    <v-select
+      label="取貨時間"
+      color="forth"
+      prepend-inner-icon="mdi-clock-time-four-outline"
+      :items="times"
+      :rules="[rules.required]"
+      v-model="time" />
+  </v-col>
+  <v-col cols="12" md="3">
+    <v-text-field
+      label="姓名"
+      prepend-inner-icon="mdi-account-circle-outline"
+      color="forth"
+      v-model="name"
+      :rules="[rules.required]" />
+  </v-col>
+  <v-col cols="12" md="3">
+    <v-text-field
+      label="電話"
+      prepend-inner-icon="mdi-cellphone"
+      color="forth"
+      v-model="phone"
+      :rules="[rules.required]"
+      />
+  </v-col>
+  <v-col class="text-center" cols="12">
+    <v-btn size="x-large" color="seventh" :disabled="!canCheckout" :loading="isSubmitting" @click="checkout">確認送出</v-btn>
+  </v-col>
+</v-row>
 </v-container>
+</v-form>
 </template>
 
 <script setup>
@@ -55,6 +113,32 @@ const createSnackbar = useSnackbar()
 const user = useUserStore()
 const router = useRouter()
 
+const isMenuOpen = ref(false)
+const DateValue = ref(null)
+
+const selectedDate = computed(() => {
+  if (!DateValue.value) return null
+  return DateValue.value.toLocaleDateString()
+})
+
+const time = ref(null)
+const times = [
+  '09:00-10:00',
+  '10:00-11:00',
+  '11:00-12:00',
+  '12:00-13:00',
+  '13:00-14:00',
+  '14:00-15:00'
+]
+
+const name = ref('')
+const phone = ref('')
+name.value = user.name
+phone.value = user.phone
+
+const rules = ref({
+  required: value => !!value || '必填欄位'
+})
 const cart = ref([])
 const headers = [
   { title: '圖片', key: 'product.images[0]' },
@@ -118,9 +202,20 @@ const isSubmitting = ref(false)
 const checkout = async () => {
   isSubmitting.value = true
   try {
-    await apiAuth.post('/orders')
+    // 結帳=>新增到訂單頁
+    await apiAuth.post('/orders', {
+      user: user._id,
+      cart: cart.value.map(item => ({
+        product: item.product._id,
+        quantity: item.quantity
+      })),
+      date: selectedDate.value,
+      time: time.value,
+      name: name.value,
+      phone: phone.value
+    })
+    // pinia保存的購物車數量歸零
     user.cart = 0
-    router.push('/orders')
     createSnackbar({
       text: '結帳成功',
       showCloseButton: false,
@@ -130,6 +225,8 @@ const checkout = async () => {
         location: 'bottom'
       }
     })
+    // 路由導向訂單頁
+    router.push('/member/orders')
   } catch (error) {
     const text = error?.response?.data?.message || '發生錯誤，請稍後再試'
     createSnackbar({

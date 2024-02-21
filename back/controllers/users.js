@@ -61,6 +61,7 @@ export const login = async (req, res) => {
       message: '',
       result: {
         token,
+        _id: req.user._id,
         account: req.user.account,
         role: req.user.role,
         // cartQuantity 來自 models=>users.js 虛擬欄位用來將購物車內商品的數量加總

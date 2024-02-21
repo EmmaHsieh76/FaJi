@@ -27,9 +27,13 @@ const schema = new Schema({
       message: '購物車不能為空'
     }
   },
-  time: {
+  date: {
     type: Date,
     required: [true, '缺少取貨日期']
+  },
+  time: {
+    type: String,
+    required: [true, '缺少取貨時間']
   },
   name: {
     type: String,

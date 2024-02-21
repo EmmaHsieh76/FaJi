@@ -10,6 +10,8 @@ import cors from 'cors'
 import routeUsers from './routes/users.js'
 // 產品路由
 import routerProducts from './routes/products.js'
+// 訂單路由
+import routeOrders from './routes/orders.js'
 // 狀態碼
 import { StatusCodes } from 'http-status-codes'
 // 登入註冊策略
@@ -55,6 +57,8 @@ app.use((_, req, res, next) => {
 app.use('/users', routeUsers)
 // 把/products應用到routerProducts
 app.use('/products', routerProducts)
+// 把/orders應用到routeOrders
+app.use('/orders', routeOrders)
 
 // all() => 所有的HTTP請求方法，ex: get,post,put,delete
 // * => 所有的路徑

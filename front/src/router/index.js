@@ -131,17 +131,29 @@ const routes = [
           title: '發記冰品 | 會員專區',
           login: true,
           admin: false
-        }
-      },
-      {
-        path: 'orders',
-        name: 'Orders',
-        component: () => import('@/views/front/OrdersView.vue'),
-        meta: {
-          title: '發記冰品 | 訂單查詢',
-          login: true,
-          admin: false
-        }
+        },
+        children: [
+          {
+            path: 'orders',
+            name: 'Orders',
+            component: () => import('@/views/front/OrdersView.vue'),
+            meta: {
+              title: '發記冰品 | 訂單查詢',
+              login: true,
+              admin: false
+            }
+          },
+          {
+            path: 'profile',
+            name: 'Profile',
+            component: () => import('@/views/front/ProfileView.vue'),
+            meta: {
+              title: '發記冰品 | 修改個人資料',
+              login: true,
+              admin: false
+            }
+          }
+        ]
       },
       {
         path: 'modification',

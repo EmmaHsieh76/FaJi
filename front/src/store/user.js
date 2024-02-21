@@ -8,6 +8,7 @@ export const useUserStore = defineStore('user', () => {
   const { apiAuth } = useApi()
   // 使用者要保存的資料
   const token = ref('')
+  const _id = ref('')
   const account = ref('')
   const cart = ref(0)
   const name = ref('')
@@ -22,6 +23,7 @@ export const useUserStore = defineStore('user', () => {
     if (data.token) {
       token.value = data.token
     }
+    _id.value = data._id
     account.value = data.account
     cart.value = data.cart
     name.value = data.name
@@ -55,6 +57,7 @@ export const useUserStore = defineStore('user', () => {
 
   const logout = () => {
     token.value = ''
+    _id.value = ''
     account.value = ''
     cart.value = 0
     name.value = ''
@@ -66,6 +69,7 @@ export const useUserStore = defineStore('user', () => {
 
   return {
     token,
+    _id,
     account,
     cart,
     name,

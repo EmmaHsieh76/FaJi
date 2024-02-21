@@ -114,7 +114,16 @@ const quantity = useField('quantity')
 
 const submit = handleSubmit(async (values) => {
   if (!user.isLogin) {
-    router.push('/login')
+    createSnackbar({
+      text: '請先登入再加入購物車',
+      showCloseButton: false,
+      snackbarProps: {
+        timeout: 1000,
+        color: 'red',
+        location: 'top'
+      }
+    })
+    router.push('/signup')
     return
   }
   try {
