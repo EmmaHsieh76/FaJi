@@ -59,11 +59,16 @@
           color="forth"
           readonly
           v-bind="props"
-          :rules="[rules.required]" />
+          :rules="[rules.required]"
+
+           />
       </template>
       <VDatePicker
         @input="isMenuOpen = false"
         v-model="DateValue"
+        :allowed-dates="allowedDates"
+        :min="minDate"
+        max="2025-12-31"
         color="forth" />
     </VMenu>
   </v-col>
@@ -130,6 +135,15 @@ const times = [
   '13:00-14:00',
   '14:00-15:00'
 ]
+// 預定日期選擇，只能選後天之後，且不能選星期三
+const today = new Date()
+const dayAfterTomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2)
+const minDate = dayAfterTomorrow.toISOString()
+
+const allowedDates = val => {
+  const dayOfWeek = new Date(val).getDay()
+  return dayOfWeek !== 3 // 3 是星期三
+}
 
 const name = ref('')
 const phone = ref('')
