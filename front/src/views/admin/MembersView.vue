@@ -122,7 +122,7 @@ const createSnackbar = useSnackbar()
     -> .deleteFileRecord() 是 VueFileAgent 內建的方法
     */
 // ===== 重設 VueFileAgent 上傳的檔案用的
-const fileAgent = ref(null)
+// const fileAgent = ref(null)
 
 // ===== 表單對話框的開啟狀態
 const dialog = ref(false)
@@ -153,7 +153,7 @@ const openDialog = (item) => {
 const closeDialog = () => {
   dialog.value = false // 關閉對話框
   resetForm() // 重置表單
-  fileAgent.value.deleteFileRecord() // 重設上傳的檔案
+  // fileAgent.value.deleteFileRecord() // 重設上傳的檔案
 }
 
 // ===== 打開 確認刪除對話框 function
@@ -229,7 +229,7 @@ const remove = async () => {
       showCloseButton: false,
       snackbarProps: {
         timeout: 2000,
-        color: 'back',
+        color: 'green',
         location: 'bottom'
       }
     })

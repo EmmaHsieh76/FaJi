@@ -119,19 +119,19 @@ import gsap from 'gsap'
 const { api } = useApi()
 const createSnackbar = useSnackbar()
 
-const selectedNumber = ref(0)
+// const selectedNumber = ref(0)
 
 const products = ref([])
 
-const items = ref([
-  { text: '粉粿' },
-  { text: '米苔目' },
-  { text: '粉條' },
-  { text: '愛玉' },
-  { text: '鳳梨' },
-  { text: '仙草' },
-  { text: '杏仁' }
-])
+// const items = ref([
+//   { text: '粉粿' },
+//   { text: '米苔目' },
+//   { text: '粉條' },
+//   { text: '愛玉' },
+//   { text: '鳳梨' },
+//   { text: '仙草' },
+//   { text: '杏仁' }
+// ])
 
 onMounted(async () => {
   try {

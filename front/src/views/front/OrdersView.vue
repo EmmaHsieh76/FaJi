@@ -1,5 +1,4 @@
 <template>
-  <v-container>
     <v-row>
       <v-col cols="12">
         <h2 class="text-center">訂單查詢</h2>
@@ -23,7 +22,6 @@
         </v-data-table>
       </v-col>
     </v-row>
-  </v-container>
 </template>
 
 <script setup>

@@ -77,7 +77,7 @@
 <!-- 刪除商品確認視窗 -->
 <v-dialog v-model="dialogRemove" width="300px">
   <v-card rounded="xl">
-    <v-card-text>確認要刪除商品嗎?</v-card-text>
+    <v-card-text>確認要刪除此項商品嗎?</v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="seventh" rounded @click="closeDialogRemove">取消</v-btn>

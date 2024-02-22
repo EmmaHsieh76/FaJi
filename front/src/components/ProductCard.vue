@@ -24,7 +24,7 @@
       class="mx-auto mb-0"
       ></v-text-field>
       <v-btn type="submit" prepend-icon="mdi-cart" :loading="isSubmitting"
-      style="width:100%; height: 50px;" color="seventh" class="">加入購物車</v-btn>
+      style="width:100%; height: 50px;" color="seventh" >加入購物車</v-btn>
     </v-form>
     <!-- <v-card-actions>
       <v-btn color="seventh" prepend-icon="mdi-cart" variant='elevated' @click="addCart" width="100%">加入購物車</v-btn>

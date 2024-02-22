@@ -145,6 +145,7 @@ const allowedDates = val => {
   return dayOfWeek !== 3 // 3 是星期三
 }
 
+// 預設取貨人名字跟電話為會員資料
 const name = ref('')
 const phone = ref('')
 name.value = user.name

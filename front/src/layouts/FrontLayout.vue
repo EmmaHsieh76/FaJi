@@ -34,7 +34,14 @@
   <v-app-bar class="white" style="height: 64px;">
     <v-container class="d-flex align-center">
       <v-btn to="/" :active="false" color="third">
-        <v-app-bar-title> 發記冰品 </v-app-bar-title>
+        <div class="d-flex justify-center" >
+         <img
+         class=""
+          src="../../public/logo14@2x.png"
+          width="45%"
+          >
+          <!-- <p id="logo">發記冰品</p> -->
+        </div>
       </v-btn>
       <v-spacer></v-spacer>
       <!-- 手機板導覽列 -->
@@ -179,5 +186,10 @@ const icons = ref([
  .appbar-color{
   background-color: #fff;
   opacity: 0.7;
+ }
+
+ #logo{
+  font-size: 1.5rem;
+  font-weight: bold;
  }
 </style>
