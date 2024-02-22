@@ -1,6 +1,8 @@
 import { Router } from 'express'
-import { create, login, logout, extend, getProfile, editCart, getCart } from '../controllers/users.js'
+import { create, login, logout, extend, getProfile, editCart, getCart, edit, getAll, remove } from '../controllers/users.js'
 import * as auth from '../middlewares/auth.js'
+import upload from '../middlewares/upload.js'
+import admin from '../middlewares/admin.js'
 
 const router = Router()
 router.post('/', create)
@@ -17,4 +19,8 @@ router.patch('/cart', auth.jwt, editCart)
 // 拿取購物車資料
 router.get('/cart', auth.jwt, getCart)
 
+// =========== 管理者用 ===========
+router.get('/all', auth.jwt, admin, getAll) // 管理者用
+router.patch('/:id', auth.jwt, admin, upload, edit) // 管理者用編輯全部
+router.delete('/:id', auth.jwt, admin, remove)
 export default router

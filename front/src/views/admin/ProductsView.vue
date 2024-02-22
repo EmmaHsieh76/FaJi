@@ -2,7 +2,7 @@
 <v-container>
   <v-row>
     <v-col cols="12">
-      <h1 class="text-center">商品管理</h1>
+      <h1 class="text-center mt-5 text-sixth">商品管理</h1>
       <v-divider></v-divider>
     </v-col>
     <v-col cols="12">
@@ -23,14 +23,14 @@
         <template #top>
           <v-row class="mb-1">
             <v-col cols="8" class="d-flex justify-start align-center">
-              <v-btn color="blue-darken-4" variant="outlined" @click="openDialog()"
+              <v-btn color="sixth" variant="outlined" @click="openDialog()"
               size="x-large"
               >新增商品
               </v-btn>
             </v-col>
             <v-col cols="4">
               <v-card
-                color="grey-lighten-5"
+                color="grey-lighten-6"
                 max-width="40vw"
               >
                 <v-card-text>
@@ -56,13 +56,13 @@
           <v-img :src="item.images[0]" height="13vh"></v-img>
         </template>
         <template #[`item.sell`]="{item}">
-          <v-icon :icon="item.sell ? 'mdi-check':'mdi-minus'"
+          <v-icon color="sixth" :icon="item.sell ? 'mdi-check':'mdi-minus'"
           size="large"></v-icon>
         </template>
         <template #[`item.edit`]="{item}">
         <v-btn icon="mdi-pencil" variant="text"
         size="large"
-        color="blue-darken-4"
+        color="sixth"
         @click="openDialog(item)"
         ></v-btn>
         </template>

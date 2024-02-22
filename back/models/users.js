@@ -63,12 +63,12 @@ const schema = new Schema(
       // 預設為使用者
       default: UserRole.USER
     },
-    // 姓名 ?
+    // 姓名
     name: {
       type: String,
       required: [true, '缺少使用者姓名']
     },
-    // 手機 ?
+    // 手機
     phone: {
       type: String,
       required: [true, '缺少使用者電話'],

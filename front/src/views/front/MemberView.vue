@@ -17,7 +17,6 @@
               rounded="xl"
             >
             <v-list-item-title class="ps-5"
-            @click="handleClick(item)"
             >{{item.text}}</v-list-item-title>
             </v-list-item>
           </v-list>
@@ -31,10 +30,11 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
+import { computed } from 'vue'
+// import { useRouter } from 'vue-router'
+
+// const router = useRouter()
 
 const items = computed(() => {
   return [

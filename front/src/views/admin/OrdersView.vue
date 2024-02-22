@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <h1 class="text-center">訂單管理</h1>
+        <h1 class="text-center mt-5 text-sixth">訂單管理</h1>
       </v-col>
       <v-divider></v-divider>
       <v-col cols="12">
@@ -73,6 +73,4 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-
 </style>
-

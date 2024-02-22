@@ -40,7 +40,7 @@ import { useApi } from '@/composables/axios'
 // 換掉原本預設的購物車值，原本設定為0
 import { useUserStore } from '@/store/user'
 import { useSnackbar } from 'vuetify-use-dialog'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 // 自己加的===========
 // import { useRoute } from 'vue-router'
 import { useForm, useField } from 'vee-validate'
@@ -52,7 +52,7 @@ const createSnackbar = useSnackbar()
 const router = useRouter()
 
 // 自己加
-const route = useRoute()
+// const route = useRoute()
 // =============
 
 // 有哪些接收的資料

@@ -12,9 +12,8 @@ export const create = async (req, res) => {
     const ok = result.cart.every(item => item.product.sell)
     // 有false就丟出錯誤
     if (!ok) throw new Error('SELL')
-    console.log(req.body)
     // 建立訂單
-    await orders.create(req.body)
+    await orders.create({ ...req.body, user: req.user._id })
     // 清空購物車
     req.user.cart = []
     await req.user.save()
