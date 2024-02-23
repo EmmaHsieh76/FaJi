@@ -3,7 +3,7 @@
     <v-col cols="12">
         <h2 class="text-center">修改個人資料</h2>
       </v-col>
-    <v-col cols="6">
+    <v-col cols="12" md="6">
      <v-form>
       <v-card
         class="mx-auto"
@@ -33,14 +33,15 @@
 
         </v-container>
 
-          <v-btn color="forth" size="x-large" class="font-weight-bold d-flex w-100" block variant="tonal">
+          <v-btn color="forth" size="x-large" class="font-weight-bold d-flex w-100"  variant="tonal" @click="submit"
+          >
           確認修改個人資料
           </v-btn>
 
       </v-card>
      </v-form>
     </v-col>
-    <v-col cols="6">
+    <v-col cols="12" md="6">
       <v-form>
         <v-card
           class="mx-auto"
@@ -82,11 +83,15 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useApi } from '@/composables/axios'
+import { useSnackbar } from 'vuetify-use-dialog'
 import { useUserStore } from '@/store/user'
 
+const { apiAuth } = useApi()
 const user = useUserStore()
+const createSnackbar = useSnackbar()
 
-// 帳號 密碼 名字 手機預設為會員資料
+// 預設 帳號 密碼 名字 手機為會員資料
 const account = ref('')
 const password = ref('')
 const name = ref('')
@@ -96,6 +101,40 @@ name.value = user.name
 phone.value = user.phone
 account.value = user.account
 password.value = user.password
+
+// 提交修改個人資料，按鈕不能按
+const isSubmitting = ref(false)
+const submit = async () => {
+  isSubmitting.value = true
+  try {
+    await apiAuth.patch('/user', {
+      name: name.value,
+      phone: phone.value
+    })
+    createSnackbar({
+      text: '更新成功',
+      showCloseButton: false,
+      snackbarProps: {
+        timeout: 2000,
+        color: 'green',
+        location: 'bottom'
+      }
+    })
+  } catch (error) {
+    console.error(error)
+    const text = error?.response?.data?.message || '發生錯誤，請稍後再試'
+    createSnackbar({
+      text,
+      showCloseButton: false,
+      snackbarProps: {
+        timeout: 2000,
+        color: 'red',
+        location: 'bottom'
+      }
+    })
+  }
+}
+// isSubmitting.value = false
 </script>
 
 <style scoped>
