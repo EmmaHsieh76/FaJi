@@ -4,7 +4,7 @@
         <h2 class="text-center">修改個人資料</h2>
       </v-col>
     <v-col cols="12" md="6">
-     <v-form>
+     <v-form :disabled="isSubmitting" @submit.prevent="submit">
       <v-card
         class="mx-auto"
         max-width="344"
@@ -20,6 +20,7 @@
             label="名字"
             variant="underlined"
             clearable
+            :rules="[rules.required]"
           ></v-text-field>
 
           <v-text-field
@@ -29,11 +30,14 @@
             placeholder="Enter your password"
             variant="underlined"
             clearable
+            :rules="[rules.required]"
           ></v-text-field>
 
         </v-container>
 
-          <v-btn color="forth" size="x-large" class="font-weight-bold d-flex w-100"  variant="tonal" @click="submit"
+          <v-btn color="forth" size="x-large" class="font-weight-bold d-flex w-100"  variant="tonal" 
+          type="submit"
+          :isSubmitting="isSubmitting"
           >
           確認修改個人資料
           </v-btn>
@@ -96,18 +100,24 @@ const account = ref('')
 const password = ref('')
 const name = ref('')
 const phone = ref('')
+const newPassword = ref('')
 
 name.value = user.name
 phone.value = user.phone
 account.value = user.account
 password.value = user.password
 
+// 規則
+const rules = ref({
+  required: value => !!value || '必填欄位'
+})
+
 // 提交修改個人資料，按鈕不能按
 const isSubmitting = ref(false)
 const submit = async () => {
   isSubmitting.value = true
   try {
-    await apiAuth.patch('/user', {
+    await apiAuth.patch('/users', {
       name: name.value,
       phone: phone.value
     })
