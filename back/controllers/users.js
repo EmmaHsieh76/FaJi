@@ -47,6 +47,7 @@ export const create = async (req, res) => {
 // 登入
 export const login = async (req, res) => {
   try {
+    console.log(req.user._id)
     // 給一組token
     // jwt的token => jwt.sign(要保存的id,密鑰,過期)
     const token = jwt.sign({ _id: req.user._id }, process.env.JWT_SECRET, { expiresIn: '14 days' })
@@ -299,7 +300,7 @@ export const getAll = async (req, res) => {
 // ===== 編輯使用者
 export const edit = async (req, res) => {
   try {
-    console.log(req.body)
+    console.log(req.params.id)
     if (!validator.isMongoId(req.params.id)) throw new Error('ID')
 
     // 1. 先把圖片路徑放進 req.body.image
