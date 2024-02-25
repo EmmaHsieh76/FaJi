@@ -314,6 +314,7 @@ export const edit = async (req, res) => {
       message: ''
     })
   } catch (error) {
+    console.log(error)
     if (error.name === 'CastError' || error.message === 'ID') {
       res.status(StatusCodes.BAD_REQUEST).json({
         success: false,

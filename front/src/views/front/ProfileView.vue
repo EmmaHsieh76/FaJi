@@ -3,7 +3,7 @@
     <v-col cols="12">
         <h2 class="text-center">修改個人資料</h2>
       </v-col>
-    <v-col cols="12" md="6">
+    <v-col cols="12">
      <v-form @submit.prevent="submit">
       <v-card
         class="mx-auto"
@@ -45,43 +45,6 @@
       </v-card>
      </v-form>
     </v-col>
-    <v-col cols="12" md="6">
-      <v-form>
-        <v-card
-          class="mx-auto"
-          max-width="344"
-        >
-    <!-- 帳號 密碼 名字 手機 -->
-    <v-card-title class="third font-weight-bold text-center" >修改密碼</v-card-title>
-      <v-container>
-        <v-text-field
-          v-model="password"
-          color="forth"
-          label="舊密碼"
-          variant="underlined"
-          clearable
-        ></v-text-field>
-        <v-text-field
-          v-model="password"
-          color="forth"
-          label="輸入新密碼"
-          variant="underlined"
-          clearable
-        ></v-text-field>
-        <v-text-field
-          v-model="password"
-          color="forth"
-          label="確認新密碼"
-          variant="underlined"
-          clearable
-        ></v-text-field>
-      </v-container>
-        <v-btn color="forth" size='x-large' class="font-weight-bold d-flex w-100" block variant="tonal">
-        確認修改密碼
-        </v-btn>
-        </v-card>
-      </v-form>
-    </v-col>
   </v-row>
 </template>
 
@@ -97,12 +60,12 @@ const createSnackbar = useSnackbar()
 
 // 預設 帳號 密碼 名字 手機為會員資料
 const account = ref('')
-const password = ref('')
+// const password = ref('')
 const name = ref('')
 const phone = ref('')
 
 account.value = user.account
-password.value = user.password
+// password.value = user.password
 name.value = user.name
 phone.value = user.phone
 
