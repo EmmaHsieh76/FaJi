@@ -128,7 +128,7 @@ const submit = handleSubmit(async (values) => {
   }
   if (user.blacklist) {
     createSnackbar({
-      text: '你是黑名單不可以下單',
+      text: '您已被停權，無法加入購物車',
       showCloseButton: false,
       snackbarProps: {
         timeout: 1000,
