@@ -126,6 +126,18 @@ const submit = handleSubmit(async (values) => {
     router.push('/signup')
     return
   }
+  if (user.blacklist) {
+    createSnackbar({
+      text: '你是黑名單不可以下單',
+      showCloseButton: false,
+      snackbarProps: {
+        timeout: 1000,
+        color: 'red',
+        location: 'top'
+      }
+    })
+    return
+  }
   try {
     const { data } = await apiAuth.patch('/users/cart', {
       product: props._id,

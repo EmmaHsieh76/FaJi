@@ -4,7 +4,7 @@
         <h2 class="text-center">修改個人資料</h2>
       </v-col>
     <v-col cols="12" md="6">
-     <v-form :disabled="isSubmitting" @submit.prevent="submit">
+     <v-form @submit.prevent="submit">
       <v-card
         class="mx-auto"
         max-width="344"
@@ -35,9 +35,9 @@
 
         </v-container>
 
-          <v-btn color="forth" size="x-large" class="font-weight-bold d-flex w-100"  variant="tonal" 
+          <v-btn color="forth" size="x-large" class="font-weight-bold d-flex w-100"  variant="tonal"
           type="submit"
-          :isSubmitting="isSubmitting"
+          @click="submit"
           >
           確認修改個人資料
           </v-btn>
@@ -100,12 +100,11 @@ const account = ref('')
 const password = ref('')
 const name = ref('')
 const phone = ref('')
-const newPassword = ref('')
 
-name.value = user.name
-phone.value = user.phone
 account.value = user.account
 password.value = user.password
+name.value = user.name
+phone.value = user.phone
 
 // 規則
 const rules = ref({
@@ -113,14 +112,16 @@ const rules = ref({
 })
 
 // 提交修改個人資料，按鈕不能按
-const isSubmitting = ref(false)
+// const isSubmitting = ref(false)
 const submit = async () => {
-  isSubmitting.value = true
+  const values = {
+    name: name.value,
+    phone: phone.value
+  }
+
   try {
-    await apiAuth.patch('/users', {
-      name: name.value,
-      phone: phone.value
-    })
+    await apiAuth.patch('/users/user/' + user._id, values)
+    user.login(values)
     createSnackbar({
       text: '更新成功',
       showCloseButton: false,
@@ -144,7 +145,7 @@ const submit = async () => {
     })
   }
 }
-// isSubmitting.value = false
+
 </script>
 
 <style scoped>

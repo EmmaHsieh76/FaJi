@@ -299,6 +299,7 @@ export const getAll = async (req, res) => {
 // ===== 編輯使用者
 export const edit = async (req, res) => {
   try {
+    console.log(req.body)
     if (!validator.isMongoId(req.params.id)) throw new Error('ID')
 
     // 1. 先把圖片路徑放進 req.body.image

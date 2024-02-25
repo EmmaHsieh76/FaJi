@@ -15,6 +15,7 @@
               :value="item"
               color="third"
               rounded="xl"
+              exact
             >
             <v-list-item-title class="ps-5"
             >{{item.text}}</v-list-item-title>
@@ -38,7 +39,7 @@ import { computed } from 'vue'
 
 const items = computed(() => {
   return [
-    { text: '訂單管理', to: '/member/orders' },
+    { text: '訂單管理', to: '/member' },
     { text: '修改個人資料', to: '/member/profile' }
   ]
 })
