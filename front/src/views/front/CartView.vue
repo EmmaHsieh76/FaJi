@@ -223,11 +223,6 @@ const checkout = async () => {
   try {
     // 結帳=>新增到訂單頁
     await apiAuth.post('/orders', {
-      user: user._id,
-      cart: cart.value.map(item => ({
-        product: item.product._id,
-        quantity: item.quantity
-      })),
       date: selectedDate.value,
       time: time.value,
       name: name.value,
