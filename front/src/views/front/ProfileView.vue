@@ -13,21 +13,22 @@
       <v-card-title class="third font-weight-bold text-center" >個人基本資料</v-card-title>
         <v-container>
           <h4>帳號</h4>
-          <h4 color="forth" class="pb-4">{{ account }}</h4>
+          <h4 color="forth" class="pb-3 mt-2">{{ account }}</h4>
+          <v-divider></v-divider>
+          <h4 class="mt-4">名字</h4>
           <v-text-field
             v-model="name"
             color="forth"
-            label="名字"
             variant="underlined"
             clearable
+            placeholder="輸入您的名字"
             :rules="[rules.required]"
           ></v-text-field>
-
+          <h4 class="mt-2">電話</h4>
           <v-text-field
             v-model="phone"
             color="forth"
-            label="手機"
-            placeholder="Enter your password"
+            placeholder="輸入您的手機號碼"
             variant="underlined"
             clearable
             :rules="[rules.required]"
@@ -78,6 +79,7 @@ const rules = ref({
 // const isSubmitting = ref(false)
 const submit = async () => {
   const values = {
+    account: account.value,
     name: name.value,
     phone: phone.value
   }

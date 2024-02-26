@@ -154,16 +154,6 @@ const routes = [
             }
           }
         ]
-      },
-      {
-        path: 'modification',
-        name: 'Modification',
-        component: () => import('@/views/front/ModificationView.vue'),
-        meta: {
-          title: '發記冰品 | 資料修改',
-          login: true,
-          admin: false
-        }
       }
     ]
   },

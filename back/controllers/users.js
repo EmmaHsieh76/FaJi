@@ -141,6 +141,7 @@ export const getProfile = async (req, res) => {
       success: true,
       message: '',
       result: {
+        _id: req.user._id,
         account: req.user.account,
         role: req.user.role,
         // cartQuantity 來自 models=>users.js 虛擬欄位，用來將購物車內商品的數量加總

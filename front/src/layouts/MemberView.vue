@@ -6,7 +6,7 @@
           min-width="200"
         >
           <v-list>
-            <v-list-subheader>會員中心</v-list-subheader>
+            <v-list-subheader class="font-weight-bold">會員中心</v-list-subheader>
             <v-divider></v-divider>
             <v-list-item
               v-for="item in items"
@@ -17,7 +17,7 @@
               rounded="xl"
               exact
             >
-            <v-list-item-title class="ps-5"
+            <v-list-item-title class="ps-5 font-weight-bold"
             >{{item.text}}</v-list-item-title>
             </v-list-item>
           </v-list>
