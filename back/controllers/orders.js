@@ -46,7 +46,7 @@ export const create = async (req, res) => {
     } else {
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         success: false,
-        message: '未知錯誤'
+        message: '未知錯誤1'
       })
     }
   }
@@ -63,7 +63,7 @@ export const get = async (req, res) => {
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: '未知錯誤'
+      message: '未知錯誤2'
     })
   }
 }
@@ -79,7 +79,7 @@ export const getAll = async (req, res) => {
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: '未知錯誤'
+      message: '未知錯誤3'
     })
   }
 }

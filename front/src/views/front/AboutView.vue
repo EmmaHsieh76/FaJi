@@ -21,7 +21,7 @@
           </v-list>
         </v-card>
       </v-col>
-      <v-col cols="9" v-if="selectedItem === '品牌故事'" class="d-flex flex-column justify-center">
+      <v-col cols="9" v-if="selectedItem === '品牌故事'">
             <h1 class="text-center third">發記故事</h1>
             <v-divider class="mb-3"></v-divider>
             <v-img
@@ -31,7 +31,7 @@
             cover
             rounded="lg"
             ></v-img>
-            <div class="mt-10 text-center">
+            <div class="mt-10">
               <p>民國54年，一位堅強的女人為了維持生計，開始在路邊賣起了剉冰，從那時起，就開啟了三代傳承的美味旅程。女人堅毅的眼神和熱情的笑容，總是迎接著街坊鄰里，讓每一位來店的人都感受到家的溫馨。她的拿手功夫是手工製作的粉粿，每一塊都充滿女士的心血，Q彈的口感讓人回味無窮。</p>
               <p>隨著時光流轉，女士養大了兒子們抱得孫子成了阿嬤，她的剉冰店漸漸成為當地的代表性小吃店，更是家人朋友聚會的首選。孩子們在這裡長大，阿嬤的粉粿成了他們童年的味道，伴隨著歲月的變遷，傳統的味道卻始終保持著不變。時至今日，傳承至第三代的剉冰店仍然秉持著阿嬤的初衷，每一樣品項都堅持純手工製作。</p>
               <p>這裡的剉冰不僅是食物，更是一段家族的歷史。每一次品嚐，都是對三代傳承的尊敬，是對阿嬤辛勤付出的致敬。這家古早味剉冰店不僅提供美味的食物，更是一個凝聚情感和回憶的地方，讓顧客們感受到濃厚的人情味和時光的靜好。</p>
@@ -136,8 +136,8 @@ function handleClick (item) {
 </script>
 
 <style scoped>
-.third {
-  color: #F9C80E;
-}
+
+
+
 
 </style>
