@@ -142,7 +142,7 @@ function handleClick (item) {
 
 @media (min-width: 1920px){
   .v-container {
-    max-width: 500px;
+    max-width: 1200px;
 }
 }
 
