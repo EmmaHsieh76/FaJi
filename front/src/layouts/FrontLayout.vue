@@ -173,6 +173,7 @@ const icons = ref([
     max-width: 1200px;
 }
 }
+
  .v-app-bar-title {
   font-size: 1.5rem;
   font-weight: bold;
