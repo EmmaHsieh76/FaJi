@@ -22,7 +22,7 @@
         </v-card>
       </v-col>
       <v-col cols="9" v-if="selectedItem === '品牌故事'">
-            <h1 class="text-center third">發記故事</h1>
+            <h2 class="text-center third">發記故事</h2>
             <v-divider class="mb-3"></v-divider>
             <v-img
             width="auto"
@@ -41,46 +41,50 @@
             </div>
       </v-col>
       <v-col cols="9" v-else-if="selectedItem === '媒體報導'">
+          <h2 class="text-center third">媒體報導</h2>
+          <v-divider class="mb-3"></v-divider>
           <v-row>
             <v-col cols="6">
               <v-card>
               <v-card-title>感謝 先吃再說 Eat First 推薦</v-card-title>
-              <iframe  width="100%" height="350" src="https://www.youtube.com/embed/rHcDyhV0TUw?si=gPtn56f7ecR19xyg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <iframe  width="100%" height="300" src="https://www.youtube.com/embed/rHcDyhV0TUw?si=gPtn56f7ecR19xyg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
               </v-card>
             </v-col>
             <v-col cols="6">
               <v-card>
               <v-card-title>感謝 感謝全民認真花 推薦</v-card-title>
-              <iframe width="100%" height="350" src="https://www.youtube.com/embed/eKpi0A3BwV0?si=LFQjRkGjwbCYvJtN&amp;start=180" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <iframe width="100%" height="300" src="https://www.youtube.com/embed/eKpi0A3BwV0?si=LFQjRkGjwbCYvJtN&amp;start=180" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </v-card>
             </v-col>
             <v-col cols="6">
               <v-card>
               <v-card-title>感謝 高點電視 推薦</v-card-title>
-              <iframe width="100%" height="350" src="https://www.youtube.com/embed/2Q7AbuAz3Jc?si=S-d4RVSr_SE3yarO&amp;start=500" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <iframe width="100%" height="300" src="https://www.youtube.com/embed/2Q7AbuAz3Jc?si=S-d4RVSr_SE3yarO&amp;start=500" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </v-card>
             </v-col>
             <v-col cols="6">
               <v-card>
               <v-card-title>感謝 厭世奶爸出走日記 推薦</v-card-title>
-              <iframe width="100%" height="350" src="https://www.youtube.com/embed/Wm3ZMy9csSY?si=G6yamBLwEIsETg_3&amp;start=546" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <iframe width="100%" height="300" src="https://www.youtube.com/embed/Wm3ZMy9csSY?si=G6yamBLwEIsETg_3&amp;start=546" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </v-card>
             </v-col>
             <v-col cols="6">
               <v-card>
               <v-card-title>感謝 千千進食中 推薦</v-card-title>
-              <iframe width="100%" height="350" src="https://www.youtube.com/embed/0pskDDN-eYM?si=CcXqZAkNYwJl2Rbm&amp;start=726" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <iframe width="100%" height="300" src="https://www.youtube.com/embed/0pskDDN-eYM?si=CcXqZAkNYwJl2Rbm&amp;start=726" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </v-card>
             </v-col>
             <v-col cols="6">
               <v-card>
               <v-card-title>感謝 野人七號部落 介紹</v-card-title>
-              <iframe width="100%" height="350" src="https://www.youtube.com/embed/kcW5cHLVZ8I?si=1LXw8uQ8mMmUWuET&amp;start=353" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <iframe width="100%" height="300" src="https://www.youtube.com/embed/kcW5cHLVZ8I?si=1LXw8uQ8mMmUWuET&amp;start=353" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </v-card>
             </v-col>
           </v-row>
       </v-col>
       <v-col cols="9" v-else-if="selectedItem === '安心證書'">
+        <h2 class="text-center third">合格證書</h2>
+        <v-divider class="mb-3"></v-divider>
         <v-row>
           <v-col cols="6">
             <v-card
@@ -134,10 +138,3 @@ function handleClick (item) {
   selectedItem.value = item.text
 }
 </script>
-
-<style scoped>
-
-
-
-
-</style>
